@@ -1,27 +1,6 @@
 {*
-* 2007-2012 PrestaShop
 *
-* NOTICE OF LICENSE
 *
-* This source file is subject to the Academic Free License (AFL 3.0)
-* that is bundled with this package in the file LICENSE.txt.
-* It is also available through the world-wide-web at this URL:
-* http://opensource.org/licenses/afl-3.0.php
-* If you did not receive a copy of the license and are unable to
-* obtain it through the world-wide-web, please send an email
-* to license@prestashop.com so we can send you a copy immediately.
-*
-* DISCLAIMER
-*
-* Do not edit or add to this file if you wish to upgrade PrestaShop to newer
-* versions in the future. If you wish to customize PrestaShop for your
-* needs please refer to http://www.prestashop.com for more information.
-*
-*  @author PrestaShop SA <contact@prestashop.com>
-*  @copyright  2007-2012 PrestaShop SA
-*  @version  Release: $Revision: 6664 $
-*  @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
-*  International Registered Trademark & Property of PrestaShop SA
 *}
 
 {*
@@ -76,11 +55,10 @@
 	{$addresses_style.alias = 'address_title'}
 {/if}
 
-<script type="text/javascript">
+<script>
 //<![CDATA[
 	{literal}
-	$(document).ready(function()
-	{
+	$(document).ready(function() {
 			resizeAddressesBox();
 	});
 	{/literal}
@@ -117,7 +95,7 @@
 		</ul>
 	{/foreach}
 	</div>
-	<p class="clear" />
+	<div class="clear"></div>
 </div>
 {else}
 	<p class="warning">{l s='No addresses available.'}&nbsp;<a href="{$link->getPageLink('address', true)}">{l s='Add new address'}</a></p>
@@ -126,6 +104,6 @@
 <div class="clear address_add"><a href="{$link->getPageLink('address', true)}" title="{l s='Add an address'}" class="button_large">{l s='Add an address'}</a></div>
 
 <ul class="footer_links">
-	<li><a href="{$link->getPageLink('my-account', true)}"><img src="{$img_dir}icon/my-account.gif" alt="" class="icon" /> {l s='Back to your account'}</a></li>
-	<li class="f_right"><a href="{$base_dir}"><img src="{$img_dir}icon/home.gif" alt="" class="icon" /> {l s='Home'}</a></li>
+	<li><a href="{$link->getPageLink('my-account', true)}">{l s='Back to your account'}</a></li>
+	<li class="f_right"><a href="{$base_dir}">{l s='Home'}</a></li>
 </ul>

@@ -1,33 +1,12 @@
 {*
-* 2007-2012 PrestaShop
 *
-* NOTICE OF LICENSE
 *
-* This source file is subject to the Academic Free License (AFL 3.0)
-* that is bundled with this package in the file LICENSE.txt.
-* It is also available through the world-wide-web at this URL:
-* http://opensource.org/licenses/afl-3.0.php
-* If you did not receive a copy of the license and are unable to
-* obtain it through the world-wide-web, please send an email
-* to license@prestashop.com so we can send you a copy immediately.
-*
-* DISCLAIMER
-*
-* Do not edit or add to this file if you wish to upgrade PrestaShop to newer
-* versions in the future. If you wish to customize PrestaShop for your
-* needs please refer to http://www.prestashop.com for more information.
-*
-*  @author PrestaShop SA <contact@prestashop.com>
-*  @copyright  2007-2012 PrestaShop SA
-*  @version  Release: $Revision: 6594 $
-*  @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
-*  International Registered Trademark & Property of PrestaShop SA
 *}
 
 {capture name=path}{l s='Login'}{/capture}
 {include file="$tpl_dir./breadcrumb.tpl"}
 
-<script type="text/javascript">
+<script>
 // <![CDATA[
 idSelectedCountry = {if isset($smarty.post.id_state)}{$smarty.post.id_state|intval}{else}false{/if};
 countries = new Array();
@@ -56,12 +35,11 @@ $(function(){ldelim}
 {if $vat_management}
 	{literal}
 	$(document).ready(function() {
-		$('#company').blur(function(){
+		$('#company').blur(function() {
 			vat_number();
 		});
 		vat_number();
-		function vat_number()
-		{
+		function vat_number() {
 			if ($('#company').val() != '')
 				$('#vat_number').show();
 			else
@@ -77,19 +55,18 @@ $(function(){ldelim}
 {include file="$tpl_dir./errors.tpl"}
 {assign var='stateExist' value=false}
 {if !isset($email_create)}
-	<script type="text/javascript">
+	<script>
 	{literal}
-	$(document).ready(function(){
-		$('#create-account_form').submit(function(){
+	$(document).ready(function() {
+		$('#create-account_form').submit(function() {
 			submitFunction();
 			return false;
 		});
-		$('#SubmitCreate').click(function(){
+		$('#SubmitCreate').click(function() {
 			submitFunction();
 		});
 	});
-	function submitFunction()
-	{
+	function submitFunction() {
 		$('#create_account_error').html('').hide();
 		//send the ajax request to the server
 		$.ajax({
@@ -195,7 +172,7 @@ $(function(){ldelim}
 	<form action="{$link->getPageLink('authentication', true, NULL, "back=$back")}" method="post" id="new_account_form" class="std clearfix">
 		<fieldset>
 			<h3>{l s='Instant Checkout'}</h3>
-			<div id="opc_account_form" style="display: block; ">
+			<div id="opc_account_form">
 				<!-- Account -->
 				<p class="required text">
 					<label for="guest_email">{l s='E-mail address'} <sup>*</sup></label>

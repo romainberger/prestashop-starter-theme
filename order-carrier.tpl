@@ -1,72 +1,51 @@
 {*
-* 2007-2012 PrestaShop
 *
-* NOTICE OF LICENSE
 *
-* This source file is subject to the Academic Free License (AFL 3.0)
-* that is bundled with this package in the file LICENSE.txt.
-* It is also available through the world-wide-web at this URL:
-* http://opensource.org/licenses/afl-3.0.php
-* If you did not receive a copy of the license and are unable to
-* obtain it through the world-wide-web, please send an email
-* to license@prestashop.com so we can send you a copy immediately.
-*
-* DISCLAIMER
-*
-* Do not edit or add to this file if you wish to upgrade PrestaShop to newer
-* versions in the future. If you wish to customize PrestaShop for your
-* needs please refer to http://www.prestashop.com for more information.
-*
-*  @author PrestaShop SA <contact@prestashop.com>
-*  @copyright  2007-2012 PrestaShop SA
-*  @version  Release: $Revision: 6758 $
-*  @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
-*  International Registered Trademark & Property of PrestaShop SA
 *}
 <div id="carrier_area">
 {if !$opc}
-	<script type="text/javascript">
-	//<![CDATA[
-	var orderProcess = 'order';
-	var currencySign = '{$currencySign|html_entity_decode:2:"UTF-8"}';
-	var currencyRate = '{$currencyRate|floatval}';
-	var currencyFormat = '{$currencyFormat|intval}';
-	var currencyBlank = '{$currencyBlank|intval}';
-	var txtProduct = "{l s='product'}";
-	var txtProducts = "{l s='products'}";
-	var orderUrl = '{$link->getPageLink("order", true)}';
+	<script>
+		//<![CDATA[
+		var orderProcess = 'order',
+			currencySign = '{$currencySign|html_entity_decode:2:"UTF-8"}',
+			currencyRate = '{$currencyRate|floatval}',
+			currencyFormat = '{$currencyFormat|intval}',
+			currencyBlank = '{$currencyBlank|intval}',
+			txtProduct = "{l s='product'}",
+			txtProducts = "{l s='products'}",
+			orderUrl = '{$link->getPageLink("order", true)}',
+			msg = "{l s='You must agree to the terms of service before continuing.' js=1}";
 
-	var msg = "{l s='You must agree to the terms of service before continuing.' js=1}";
-	{literal}
-	function acceptCGV()
-	{
-		if ($('#cgv').length && !$('input#cgv:checked').length)
-		{
-			alert(msg);
-			return false;
-		}
-		else
-			return true;
-	}
-	{/literal}
-	//]]>
+		{literal}
+			function acceptCGV() {
+				if ($('#cgv').length && !$('input#cgv:checked').length) {
+					alert(msg);
+					return false;
+				}
+				else {
+					return true;
+				—
+			}
+		{/literal}
+		//]]>
 	</script>
 {else}
-	<script type="text/javascript">
+	<script>
 		var txtFree = "{l s='Free!'}";
 	</script>
 {/if}
 
 {if isset($virtual_cart) && !$virtual_cart && $giftAllowed && $cart->gift == 1}
-<script type="text/javascript">
-{literal}
-// <![CDATA[
-	$('document').ready( function(){
-		if ($('input#gift').is(':checked'))
-			$('p#gift_div').show();
-	});
-//]]>
-{/literal}
+<script>
+	{literal}
+	// <![CDATA[
+		$('document').ready( function() {
+			if ($('input#gift').is(':checked')) {
+				$('p#gift_div').show();
+			}
+		});
+	//]]>
+	{/literal}
 </script>
 {/if}
 
@@ -84,9 +63,9 @@
 {if !$opc}
 	{assign var='current_step' value='shipping'}
 	{include file="$tpl_dir./order-steps.tpl"}
-	
+
 	{include file="$tpl_dir./errors.tpl"}
-	
+
 	<form id="form" action="{$link->getPageLink('order', true, NULL, "multi-shipping={$multi_shipping}")}" method="post" onsubmit="return acceptCGV();">
 {else}
 	<div id="opc_delivery_methods" class="opc-main-block">
@@ -99,7 +78,7 @@
 	<input id="input_virtual_carrier" class="hidden" type="hidden" name="id_carrier" value="0" />
 {else}
 	<h3 class="carrier_title">{l s='Choose your delivery method'}</h3>
-	
+
 	<div id="HOOK_BEFORECARRIER">
 		{if isset($carriers) && isset($HOOK_BEFORECARRIER)}
 			{$HOOK_BEFORECARRIER}
@@ -230,10 +209,10 @@
 			</p>
 		{/foreach}
 	{/if}
-	
+
 	</div>
 	<div style="display: none;" id="extra_carrier"></div>
-	
+
 		{if $giftAllowed}
 		<h3 class="gift_title">{l s='Gift'}</h3>
 		<p class="checkbox">
@@ -263,7 +242,7 @@
 		<input type="checkbox" name="cgv" id="cgv" value="1" {if $checkedTOS}checked="checked"{/if} />
 		<label for="cgv">{l s='I agree to the Terms of Service and will adhere to them unconditionally.'}</label> <a href="{$link_conditions}" class="iframe">{l s='(Read Terms of Service)'}</a>
 	</p>
-	<script type="text/javascript">$('a.iframe').fancybox();</script>
+	<script>$('a.iframe').fancybox();</script>
 {/if}
 </div>
 
@@ -273,15 +252,15 @@
 		<input type="hidden" name="back" value="{$back}" />
 		{if !$is_guest}
 			{if $back}
-				<a href="{$link->getPageLink('order', true, NULL, "step=1&back={$back}&multi-shipping={$multi_shipping}")}" title="{l s='Previous'}" class="button">&laquo; {l s='Previous'}</a>
+				<a href="{$link->getPageLink('order', true, NULL, "step=1&back={$back}&multi-shipping={$multi_shipping}")}" title="{l s='Previous'}" class="button">{l s='Previous'}</a>
 			{else}
-				<a href="{$link->getPageLink('order', true, NULL, "step=1&multi-shipping={$multi_shipping}")}" title="{l s='Previous'}" class="button">&laquo; {l s='Previous'}</a>
+				<a href="{$link->getPageLink('order', true, NULL, "step=1&multi-shipping={$multi_shipping}")}" title="{l s='Previous'}" class="button">{l s='Previous'}</a>
 			{/if}
 		{else}
-				<a href="{$link->getPageLink('order', true, NULL, "multi-shipping={$multi_shipping}")}" title="{l s='Previous'}" class="button">&laquo; {l s='Previous'}</a>
+				<a href="{$link->getPageLink('order', true, NULL, "multi-shipping={$multi_shipping}")}" title="{l s='Previous'}" class="button">{l s='Previous'}</a>
 		{/if}
 		{if isset($virtual_cart) && $virtual_cart || (isset($delivery_option_list) && !empty($delivery_option_list))}
-			<input type="submit" name="processCarrier" value="{l s='Next'} &raquo;" class="exclusive" />
+			<input type="submit" name="processCarrier" value="{l s='Next'}" class="exclusive" />
 		{/if}
 	</p>
 </form>
@@ -289,7 +268,7 @@
 	<h3>{l s='Leave a message'}</h3>
 	<div>
 		<p>{l s='If you would like to add a comment about your order, please write it below.'}</p>
-		<p><textarea cols="120" rows="3" name="message" id="message">{if isset($oldMessage)}{$oldMessage}{/if}</textarea></p>
+		<p><textarea name="message" id="message">{if isset($oldMessage)}{$oldMessage}{/if}</textarea></p>
 	</div>
 </div>
 {/if}
