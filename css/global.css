@@ -1,0 +1,44 @@
+/* =============================================================================
+	General
+   ========================================================================== */
+* { zoom: 1; }
+html{
+    font-size: 100%;
+    -webkit-text-size-adjust: 100%;
+    -ms-text-size-adjust: 100%;
+    /* Stop screen flicker in IE on CSS rollovers */
+    filter: expression(document.execCommand('BackgroundImageCache', false, true));
+}
+body {
+	margin: 0;
+	padding: 0;
+	color: #000;
+}
+header, section, footer, aside, nav, article, figure{ display: block; }
+.hidden { display: none }
+.fl { float: left;}
+.fr { float: right;}
+.clear {
+	clear: both;
+	height: 0;
+	width: 0;
+	border: 0;
+}
+.clearfix:after {
+	clear: both;
+	display: block;
+	height: 0;
+	visibility: hidden;
+	content: '';
+}
+ul {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+button,
+input[type=submit]{
+	cursor: pointer;
+	font-family: inherit;
+}
+img{ border: 0;}
