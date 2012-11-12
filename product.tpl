@@ -1,32 +1,11 @@
 {*
-* 2007-2012 PrestaShop
 *
-* NOTICE OF LICENSE
 *
-* This source file is subject to the Academic Free License (AFL 3.0)
-* that is bundled with this package in the file LICENSE.txt.
-* It is also available through the world-wide-web at this URL:
-* http://opensource.org/licenses/afl-3.0.php
-* If you did not receive a copy of the license and are unable to
-* obtain it through the world-wide-web, please send an email
-* to license@prestashop.com so we can send you a copy immediately.
-*
-* DISCLAIMER
-*
-* Do not edit or add to this file if you wish to upgrade PrestaShop to newer
-* versions in the future. If you wish to customize PrestaShop for your
-* needs please refer to http://www.prestashop.com for more information.
-*
-*  @author PrestaShop SA <contact@prestashop.com>
-*  @copyright  2007-2012 PrestaShop SA
-*  @version  Release: $Revision: 6625 $
-*  @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
-*  International Registered Trademark & Property of PrestaShop SA
 *}
 
 {include file="$tpl_dir./errors.tpl"}
 {if $errors|@count == 0}
-<script type="text/javascript">
+<script>
 // <![CDATA[
 
 // PrestaShop internal settings
@@ -413,7 +392,7 @@ var fieldRequired = '{l s='Please fill in all required fields, then save the cus
 				</p>
 			{/if}
 			{if $packItems|@count && $productPrice < $product->getNoPackPrice()}
-				<p class="pack_price">{l s='instead of'} <span style="text-decoration: line-through;">{convertPrice price=$product->getNoPackPrice()}</span></p>
+				<p class="pack_price">{l s='instead of'} <span>{convertPrice price=$product->getNoPackPrice()}</span></p>
 				<br class="clear" />
 			{/if}
 			{if $product->ecotax != 0}
@@ -453,7 +432,7 @@ var fieldRequired = '{l s='Please fill in all required fields, then save the cus
 {if (isset($quantity_discounts) && count($quantity_discounts) > 0)}
 <!-- quantity discount -->
 <ul class="idTabs clearfix">
-	<li><a href="#discount" style="cursor: pointer" class="selected">{l s='Quantity discount'}</a></li>
+	<li><a href="#discount" class="selected">{l s='Quantity discount'}</a></li>
 </ul>
 <div id="quantityDiscount">
 	<table class="std">
@@ -544,7 +523,7 @@ var fieldRequired = '{l s='Please fill in all required fields, then save the cus
 									</div>
 									<div class="clear_product_desc">&nbsp;</div>
 								</div>
-								<p class="clearfix" style="margin-top:5px">
+								<p class="clearfix">
 									<a class="button" href="{$accessoryLink|escape:'htmlall':'UTF-8'}" title="{l s='View'}">{l s='View'}</a>
 									<a class="exclusive button ajax_add_to_cart_button" href="{$link->getPageLink('cart', true, NULL, "qty=1&amp;id_product={$accessory.id_product|intval}&amp;token={$static_token}&amp;add")}" rel="ajax_id_product_{$accessory.id_product|intval}" title="{l s='Add to cart'}">{l s='Add to cart'}</a>
 								</p>
@@ -601,7 +580,7 @@ var fieldRequired = '{l s='Please fill in all required fields, then save the cus
 						{if $field.type == 1}
 						<li class="customizationUploadLine{if $field.required} required{/if}">
 							<label for ="textField{$customizationField}">{assign var='key' value='textFields_'|cat:$product->id|cat:'_'|cat:$field.id_customization_field} {if !empty($field.name)}{$field.name}{/if}{if $field.required}<sup>*</sup>{/if}</label>
-							<textarea type="text" name="textField{$field.id_customization_field}" id="textField{$customizationField}" rows="1" cols="40" class="customization_block_input" />{if isset($textFields.$key)}{$textFields.$key|stripslashes}{/if}</textarea>
+							<textarea type="text" name="textField{$field.id_customization_field}" id="textField{$customizationField}" class="customization_block_input" />{if isset($textFields.$key)}{$textFields.$key|stripslashes}{/if}</textarea>
 						</li>
 						{counter}
 						{/if}

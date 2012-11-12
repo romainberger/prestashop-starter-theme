@@ -37,8 +37,8 @@ ul {
 	list-style: none;
 }
 button,
-input[type=submit]{
+input[type=submit] {
 	cursor: pointer;
 	font-family: inherit;
 }
-img{ border: 0;}
+img { border: 0;}

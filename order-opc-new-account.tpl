@@ -4,16 +4,16 @@
 	<form action="{$link->getPageLink('authentication', true, NULL, "back=order-opc")}" method="post" id="login_form" class="std">
 		<fieldset>
 			<h3>{l s='Already registered?'}</h3>
-			<p><a href="#" id="openLoginFormBlock">&raquo; {l s='Click here'}</a></p>
+			<p><a href="#" id="openLoginFormBlock">{l s='Click here'}</a></p>
 			<div id="login_form_content" style="display:none;">
 				<!-- Error return block -->
 				<div id="opc_login_errors" class="error" style="display:none;"></div>
 				<!-- END Error return block -->
-				<div style="margin-left:40px;margin-bottom:5px;float:left;width:40%;">
+				<div>
 					<label for="login_email">{l s='E-mail address'}</label>
 					<span><input type="text" id="login_email" name="email" /></span>
 				</div>
-				<div style="margin-left:40px;margin-bottom:5px;float:left;width:40%;">
+				<div>
 					<label for="login_passwd">{l s='Password'}</label>
 					<span><input type="password" id="login_passwd" name="login_passwd" /></span>
 					<a href="{$link->getPageLink('password', true)}" class="lost_password">{l s='Forgot your password?'}</a>
@@ -38,7 +38,7 @@
 
 				<div class="opc_float">
 					<h4>{l s='Create your account today and enjoy:'}</h4>
-					<ul class="bullet">
+					<ul>
 						<li>{l s='Personalized and secure access'}</li>
 						<li>{l s='Fast and easy check out'}</li>
 						<li>{l s='Separate billing and shipping addresses'}</li>
@@ -51,7 +51,7 @@
 			</div>
 			<div id="opc_account_form">
 				{$HOOK_CREATE_ACCOUNT_TOP}
-				<script type="text/javascript">
+				<script>
 				// <![CDATA[
 				idSelectedCountry = {if isset($guestInformations) && $guestInformations.id_state}{$guestInformations.id_state|intval}{else}false{/if};
 				{if isset($countries)}
@@ -64,7 +64,7 @@
 						{/if}
 						{if $country.need_identification_number}
 							countriesNeedIDNumber.push({$country.id_country|intval});
-						{/if}	
+						{/if}
 						{if isset($country.need_zip_code)}
 							countriesNeedZipCode[{$country.id_country|intval}] = {$country.need_zip_code};
 						{/if}
@@ -73,26 +73,24 @@
 				//]]>
 				{if $vat_management}
 					{literal}
-					function vat_number()
-					{
+					function vat_number() {
 						if ($('#company').val() != '')
 							$('#vat_number_block').show();
 						else
 							$('#vat_number_block').hide();
 					}
-					function vat_number_invoice()
-					{
+					function vat_number_invoice() {
 						if ($('#company_invoice').val() != '')
 							$('#vat_number_block_invoice').show();
 						else
 							$('#vat_number_block_invoice').hide();
 					}
-					
+
 					$(document).ready(function() {
-						$('#company').blur(function(){
+						$('#company').blur(function() {
 							vat_number();
 						});
-						$('#company_invoice').blur(function(){
+						$('#company_invoice').blur(function() {
 							vat_number_invoice();
 						});
 						vat_number();
@@ -215,7 +213,7 @@
 				<p class="required text">
 					<label for="city">{l s='City'} <sup>*</sup></label>
 					<input type="text" class="text" name="city" id="city" value="{if isset($guestInformations) && $guestInformations.city}{$guestInformations.city}{/if}" />
-					
+
 				</p>
 				{elseif $field_name eq "country" || $field_name eq "Country:name"}
 				<p class="required select">
@@ -227,7 +225,7 @@
 						{/foreach}
 					</select>
 				</p>
-				{elseif $field_name eq "vat_number"}	
+				{elseif $field_name eq "vat_number"}
 				<div id="vat_number_block" style="display:none;">
 					<p class="text">
 						<label for="vat_number">{l s='VAT number'}</label>
@@ -378,7 +376,7 @@
 				<p style="display: none;" id="opc_account_saved">
 					{l s='Account informations saved successfully'}
 				</p>
-				<p class="required opc-required" style="clear: both;">
+				<p class="required opc-required">
 					<sup>*</sup>{l s='Required field'}
 				</p>
 				<!-- END Account -->
