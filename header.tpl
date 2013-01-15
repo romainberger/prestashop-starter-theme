@@ -11,12 +11,13 @@
 	<head>
 		<meta charset="utf-8">
 		<title>{$meta_title|escape:'htmlall':'UTF-8'}</title>
-{if isset($meta_description) AND $meta_description}
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+	{if isset($meta_description) AND $meta_description}
 		<meta name="description" content="{$meta_description|escape:html:'UTF-8'}">
-{/if}
-{if isset($meta_keywords) AND $meta_keywords}
+	{/if}
+	{if isset($meta_keywords) AND $meta_keywords}
 		<meta name="keywords" content="{$meta_keywords|escape:html:'UTF-8'}">
-{/if}
+	{/if}
 		<meta http-equiv="content-language" content="{$meta_language}">
 		<meta name="robots" content="{if isset($nobots)}no{/if}index,{if isset($nofollow) && $nofollow}no{/if}follow">
 		<link rel="icon" type="image/vnd.microsoft.icon" href="{$favicon_url}?{$img_update_time}">
@@ -28,18 +29,18 @@
 				token = '{$token}',
 				priceDisplayPrecision = {$priceDisplayPrecision*$currency->decimals},
 				priceDisplayMethod = {$priceDisplay},
-				roundMode = {$roundMode};
+				roundMode = {$roundMode}
 		</script>
-{if isset($css_files)}
-	{foreach from=$css_files key=css_uri item=media}
-	<link href="{$css_uri}" rel="stylesheet" type="text/css" media="{$media}">
-	{/foreach}
-{/if}
-{if isset($js_files)}
-	{foreach from=$js_files item=js_uri}
-	<script src="{$js_uri}"></script>
-	{/foreach}
-{/if}
+	{if isset($css_files)}
+		{foreach from=$css_files key=css_uri item=media}
+			<link href="{$css_uri}" rel="stylesheet" media="{$media}">
+		{/foreach}
+	{/if}
+	{if isset($js_files)}
+		{foreach from=$js_files item=js_uri}
+			<script src="{$js_uri}"></script>
+		{/foreach}
+	{/if}
 		{$HOOK_HEADER}
 	</head>
 
