@@ -1,6 +1,26 @@
 {*
+* 2007-2012 PrestaShop
 *
+* NOTICE OF LICENSE
 *
+* This source file is subject to the Academic Free License (AFL 3.0)
+* that is bundled with this package in the file LICENSE.txt.
+* It is also available through the world-wide-web at this URL:
+* http://opensource.org/licenses/afl-3.0.php
+* If you did not receive a copy of the license and are unable to
+* obtain it through the world-wide-web, please send an email
+* to license@prestashop.com so we can send you a copy immediately.
+*
+* DISCLAIMER
+*
+* Do not edit or add to this file if you wish to upgrade PrestaShop to newer
+* versions in the future. If you wish to customize PrestaShop for your
+* needs please refer to http://www.prestashop.com for more information.
+*
+*  @author PrestaShop SA <contact@prestashop.com>
+*  @copyright  2007-2012 PrestaShop SA
+*  @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+*  International Registered Trademark & Property of PrestaShop SA
 *}
 
 {capture name=path}{l s='Contact'}{/capture}
@@ -11,15 +31,15 @@
 {if isset($confirmation)}
 	<p>{l s='Your message has been successfully sent to our team.'}</p>
 	<ul class="footer_links">
-		<li><a href="{$base_dir}">{l s='Home'}</a></li>
+		<li><a href="{$base_dir}"><img class="icon" alt="" src="{$img_dir}icon/home.gif"/></a><a href="{$base_dir}">{l s='Home'}</a></li>
 	</ul>
 {elseif isset($alreadySent)}
 	<p>{l s='Your message has already been sent.'}</p>
 	<ul class="footer_links">
-		<li><a href="{$base_dir}">{l s='Home'}</a></li>
+		<li><a href="{$base_dir}"><img class="icon" alt="" src="{$img_dir}icon/home.gif"/></a><a href="{$base_dir}">{l s='Home'}</a></li>
 	</ul>
 {else}
-	<p>{l s='For questions about an order or for more information about our products'}.</p>
+	<p class="bold">{l s='For questions about an order or for more information about our products'}.</p>
 	{include file="$tpl_dir./errors.tpl"}
 	<form action="{$request_uri|escape:'htmlall':'UTF-8'}" method="post" class="std" enctype="multipart/form-data">
 		<fieldset>
@@ -60,12 +80,12 @@
 		{if !$PS_CATALOG_MODE}
 			{if (!isset($customerThread.id_order) || $customerThread.id_order > 0)}
 			<p class="text select">
-				<label for="id_order">{l s='Order ID'}</label>
+				<label for="id_order">{l s='Order Reference'}</label>
 				{if !isset($customerThread.id_order) && isset($isLogged) && $isLogged == 1}
 					<select name="id_order" >
 						<option value="0">{l s='-- Choose --'}</option>
 						{foreach from=$orderList item=order}
-							<option value="{$order.value|intval}">{$order.label|escape:'htmlall':'UTF-8'}</option>
+							<option value="{$order.value|intval}" {if $order.selected|intval}selected="selected"{/if}>{$order.label|escape:'htmlall':'UTF-8'}</option>
 						{/foreach}
 					</select>
 				{elseif !isset($customerThread.id_order) && !isset($isLogged)}
@@ -80,7 +100,7 @@
 			<label for="id_product">{l s='Product'}</label>
 				{if !isset($customerThread.id_product)}
 				{foreach from=$orderedProductList key=id_order item=products name=products}
-					<select name="id_product" id="{$id_order}_order_products" class="product_select" style="{if !$smarty.foreach.products.first}display:none;{/if}" {if !$smarty.foreach.products.first}disabled="disabled"{/if}>
+					<select name="id_product" id="{$id_order}_order_products" class="product_select" style="width:300px;{if !$smarty.foreach.products.first} display:none; {/if}" {if !$smarty.foreach.products.first}disabled="disabled" {/if}>
 						<option value="0">{l s='-- Choose --'}</option>
 						{foreach from=$products item=product}
 							<option value="{$product.value|intval}">{$product.label|escape:'htmlall':'UTF-8'}</option>
@@ -102,7 +122,7 @@
 		{/if}
 		<p class="textarea">
 			<label for="message">{l s='Message'}</label>
-			 <textarea id="message" name="message">{if isset($message)}{$message|escape:'htmlall':'UTF-8'|stripslashes}{/if}</textarea>
+			 <textarea id="message" name="message" rows="15" cols="10">{if isset($message)}{$message|escape:'htmlall':'UTF-8'|stripslashes}{/if}</textarea>
 		</p>
 		<p class="submit">
 			<input type="submit" name="submitMessage" id="submitMessage" value="{l s='Send'}" class="button_large" onclick="$(this).hide();" />

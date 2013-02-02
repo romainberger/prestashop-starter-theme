@@ -1,29 +1,45 @@
 {*
+* 2007-2012 PrestaShop
 *
+* NOTICE OF LICENSE
 *
+* This source file is subject to the Academic Free License (AFL 3.0)
+* that is bundled with this package in the file LICENSE.txt.
+* It is also available through the world-wide-web at this URL:
+* http://opensource.org/licenses/afl-3.0.php
+* If you did not receive a copy of the license and are unable to
+* obtain it through the world-wide-web, please send an email
+* to license@prestashop.com so we can send you a copy immediately.
+*
+* DISCLAIMER
+*
+* Do not edit or add to this file if you wish to upgrade PrestaShop to newer
+* versions in the future. If you wish to customize PrestaShop for your
+* needs please refer to http://www.prestashop.com for more information.
+*
+*  @author PrestaShop SA <contact@prestashop.com>
+*  @copyright  2007-2012 PrestaShop SA
+*  @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+*  International Registered Trademark & Property of PrestaShop SA
 *}
 
 {if !$opc}
-	<script>
-		// <![CDATA[
-		var currencySign = '{$currencySign|html_entity_decode:2:"UTF-8"}',
-			currencyRate = '{$currencyRate|floatval}',
-			currencyFormat = '{$currencyFormat|intval}',
-			currencyBlank = '{$currencyBlank|intval}',
-			txtProduct = "{l s='product'}",
-			txtProducts = "{l s='products'}";
-		// ]]>
+	<script type="text/javascript">
+	// <![CDATA[
+	var currencySign = '{$currencySign|html_entity_decode:2:"UTF-8"}';
+	var currencyRate = '{$currencyRate|floatval}';
+	var currencyFormat = '{$currencyFormat|intval}';
+	var currencyBlank = '{$currencyBlank|intval}';
+	var txtProduct = "{l s='product' js=1}";
+	var txtProducts = "{l s='products' js=1}";
+	// ]]>
 	</script>
 
 	{capture name=path}{l s='Your payment method'}{/capture}
 	{include file="$tpl_dir./breadcrumb.tpl"}
 {/if}
 
-{if !$opc}
-	<h1>{l s='Choose your payment method'}</h1>
-{else}
-	<h2><span>3</span> {l s='Choose your payment method'}</h2>
-{/if}
+{if !$opc}<h1>{l s='Choose your payment method'}</h1>{else}<h2><span>3</span> {l s='Choose your payment method'}</h2>{/if}
 
 {if !$opc}
 	{assign var='current_step' value='payment'}
@@ -179,13 +195,13 @@
 					{if $voucherAllowed}
 					<form action="{if $opc}{$link->getPageLink('order-opc', true)}{else}{$link->getPageLink('order', true)}{/if}" method="post" id="voucher">
 						<fieldset>
-							<h4><label for="discount_name">{l s='Vouchers'}</label></h4>
+							<p class="title_block"><label for="discount_name">{l s='Vouchers'}</label></p>
 							<p>
 								<input type="text" id="discount_name" name="discount_name" value="{if isset($discount_name) && $discount_name}{$discount_name}{/if}" />
 							</p>
 							<p class="submit"><input type="hidden" name="submitDiscount" /><input type="submit" name="submitAddDiscount" value="{l s='ok'}" class="button" /></p>
 						{if $displayVouchers}
-							<h4 class="title_offers">{l s='Take advantage of our offers:'}</h4>
+							<p id="title" class="title_offers">{l s='Take advantage of our offers:'}</p>
 							<div id="display_cart_vouchers">
 							{foreach from=$displayVouchers item=voucher}
 								<span onclick="$('#discount_name').val('{$voucher.name}');return false;" class="voucher_name">{$voucher.name}</span> - {$voucher.description} <br />
@@ -251,19 +267,23 @@
 							{if isset($cannotModify) AND $cannotModify == 1}
 								<span style="float:left">{if $quantityDisplayed == 0 AND isset($customizedDatas.$productId.$productAttributeId)}{$customizedDatas.$productId.$productAttributeId|@count}{else}{$product.cart_quantity-$quantityDisplayed}{/if}</span>
 							{else}
-								<div>
-									<a rel="nofollow" class="cart_quantity_delete" id="{$product.id_product}_{$product.id_product_attribute}_{$id_customization}" href="{$link->getPageLink('cart', true, NULL, "delete&amp;id_product={$product.id_product|intval}&amp;ipa={$product.id_product_attribute|intval}&amp;id_customization={$id_customization}&amp;token={$token_cart}")}">{l s='Delete this customization'}"</a>
+								<div style="float:right">
+									<a rel="nofollow" class="cart_quantity_delete" id="{$product.id_product}_{$product.id_product_attribute}_{$id_customization}" href="{$link->getPageLink('cart', true, NULL, "delete&amp;id_product={$product.id_product|intval}&amp;ipa={$product.id_product_attribute|intval}&amp;id_customization={$id_customization}&amp;token={$token_cart}")}"><img src="{$img_dir}icon/delete.gif" alt="{l s='Delete'}" title="{l s='Delete this customization'}" width="11" height="13" class="icon" /></a>
 								</div>
-								<div id="cart_quantity_button">
-									<a rel="nofollow" class="cart_quantity_up" id="cart_quantity_up_{$product.id_product}_{$product.id_product_attribute}_{$id_customization}" href="{$link->getPageLink('cart', true, NULL, "add&amp;id_product={$product.id_product|intval}&amp;ipa={$product.id_product_attribute|intval}&amp;id_customization={$id_customization}&amp;token={$token_cart}")}" title="{l s='Add'}">{l s='Add'}</a>
-									{if $product.minimal_quantity < ($customization.quantity -$quantityDisplayed) OR $product.minimal_quantity <= 1}
-										<a rel="nofollow" class="cart_quantity_down" id="cart_quantity_down_{$product.id_product}_{$product.id_product_attribute}_{$id_customization}" href="{$link->getPageLink('cart', true, NULL, "add&amp;id_product={$product.id_product|intval}&amp;ipa={$product.id_product_attribute|intval}&amp;id_customization={$id_customization}&amp;op=down&amp;token={$token_cart}")}" title="{l s='Subtract'}">{l s='Subtract'}</a>
-									{else}
-										<a class="cart_quantity_down" style="opacity: 0.3;" id="cart_quantity_down_{$product.id_product}_{$product.id_product_attribute}_{$id_customization}" href="#" title="{l s='Subtract'}">{l s='Subtract'}</a>
-									{/if}
+								<div id="cart_quantity_button" style="float:left">
+								<a rel="nofollow" class="cart_quantity_up" id="cart_quantity_up_{$product.id_product}_{$product.id_product_attribute}_{$id_customization}" href="{$link->getPageLink('cart', true, NULL, "add&amp;id_product={$product.id_product|intval}&amp;ipa={$product.id_product_attribute|intval}&amp;id_customization={$id_customization}&amp;token={$token_cart}")}" title="{l s='Add'}"><img src="{$img_dir}icon/quantity_up.gif" alt="{l s='Add'}" width="14" height="9" /></a><br />
+								{if $product.minimal_quantity < ($customization.quantity -$quantityDisplayed) OR $product.minimal_quantity <= 1}
+								<a rel="nofollow" class="cart_quantity_down" id="cart_quantity_down_{$product.id_product}_{$product.id_product_attribute}_{$id_customization}" href="{$link->getPageLink('cart', true, NULL, "add&amp;id_product={$product.id_product|intval}&amp;ipa={$product.id_product_attribute|intval}&amp;id_customization={$id_customization}&amp;op=down&amp;token={$token_cart}")}" title="{l s='Subtract'}">
+									<img src="{$img_dir}icon/quantity_down.gif" alt="{l s='Subtract'}" width="14" height="9" />
+								</a>
+								{else}
+								<a class="cart_quantity_down" style="opacity: 0.3;" id="cart_quantity_down_{$product.id_product}_{$product.id_product_attribute}_{$id_customization}" href="#" title="{l s='Subtract'}">
+									<img src="{$img_dir}icon/quantity_down.gif" alt="{l s='Subtract'}" width="14" height="9" />
+								</a>
+								{/if}
 								</div>
 								<input type="hidden" value="{$customization.quantity}" name="quantity_{$product.id_product}_{$product.id_product_attribute}_{$id_customization}_hidden"/>
-								<input type="text" value="{$customization.quantity}" class="cart_quantity_input" name="quantity_{$product.id_product}_{$product.id_product_attribute}_{$id_customization}"/>
+								<input size="2" type="text" value="{$customization.quantity}" class="cart_quantity_input" name="quantity_{$product.id_product}_{$product.id_product_attribute}_{$id_customization}"/>
 							{/if}
 						</td>
 						<td class="cart_total"></td>
@@ -318,7 +338,7 @@
 {/if}
 
 {if !$opc}
-	<p class="cart_navigation"><a href="{$link->getPageLink('order', true, NULL, "step=2")}" title="{l s='Previous'}" class="button">{l s='Previous'}</a></p>
+	<p class="cart_navigation"><a href="{$link->getPageLink('order', true, NULL, "step=2")}" title="{l s='Previous'}" class="button">&laquo; {l s='Previous'}</a></p>
 {else}
 	</div>
 {/if}
