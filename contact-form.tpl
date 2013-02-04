@@ -1,26 +1,6 @@
 {*
-* 2007-2012 PrestaShop
 *
-* NOTICE OF LICENSE
 *
-* This source file is subject to the Academic Free License (AFL 3.0)
-* that is bundled with this package in the file LICENSE.txt.
-* It is also available through the world-wide-web at this URL:
-* http://opensource.org/licenses/afl-3.0.php
-* If you did not receive a copy of the license and are unable to
-* obtain it through the world-wide-web, please send an email
-* to license@prestashop.com so we can send you a copy immediately.
-*
-* DISCLAIMER
-*
-* Do not edit or add to this file if you wish to upgrade PrestaShop to newer
-* versions in the future. If you wish to customize PrestaShop for your
-* needs please refer to http://www.prestashop.com for more information.
-*
-*  @author PrestaShop SA <contact@prestashop.com>
-*  @copyright  2007-2012 PrestaShop SA
-*  @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
-*  International Registered Trademark & Property of PrestaShop SA
 *}
 
 {capture name=path}{l s='Contact'}{/capture}
@@ -31,12 +11,12 @@
 {if isset($confirmation)}
 	<p>{l s='Your message has been successfully sent to our team.'}</p>
 	<ul class="footer_links">
-		<li><a href="{$base_dir}"><img class="icon" alt="" src="{$img_dir}icon/home.gif"/></a><a href="{$base_dir}">{l s='Home'}</a></li>
+		<li><a href="{$base_dir}">{l s='Home'}</a></li>
 	</ul>
 {elseif isset($alreadySent)}
 	<p>{l s='Your message has already been sent.'}</p>
 	<ul class="footer_links">
-		<li><a href="{$base_dir}"><img class="icon" alt="" src="{$img_dir}icon/home.gif"/></a><a href="{$base_dir}">{l s='Home'}</a></li>
+		<li><a href="{$base_dir}">{l s='Home'}</a></li>
 	</ul>
 {else}
 	<p class="bold">{l s='For questions about an order or for more information about our products'}.</p>
@@ -100,7 +80,7 @@
 			<label for="id_product">{l s='Product'}</label>
 				{if !isset($customerThread.id_product)}
 				{foreach from=$orderedProductList key=id_order item=products name=products}
-					<select name="id_product" id="{$id_order}_order_products" class="product_select" style="width:300px;{if !$smarty.foreach.products.first} display:none; {/if}" {if !$smarty.foreach.products.first}disabled="disabled" {/if}>
+					<select name="id_product" id="{$id_order}_order_products" class="product_select" style="{if !$smarty.foreach.products.first} display:none; {/if}" {if !$smarty.foreach.products.first}disabled="disabled" {/if}>
 						<option value="0">{l s='-- Choose --'}</option>
 						{foreach from=$products item=product}
 							<option value="{$product.value|intval}">{$product.label|escape:'htmlall':'UTF-8'}</option>
