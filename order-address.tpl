@@ -1,26 +1,6 @@
 {*
-* 2007-2012 PrestaShop
 *
-* NOTICE OF LICENSE
 *
-* This source file is subject to the Academic Free License (AFL 3.0)
-* that is bundled with this package in the file LICENSE.txt.
-* It is also available through the world-wide-web at this URL:
-* http://opensource.org/licenses/afl-3.0.php
-* If you did not receive a copy of the license and are unable to
-* obtain it through the world-wide-web, please send an email
-* to license@prestashop.com so we can send you a copy immediately.
-*
-* DISCLAIMER
-*
-* Do not edit or add to this file if you wish to upgrade PrestaShop to newer
-* versions in the future. If you wish to customize PrestaShop for your
-* needs please refer to http://www.prestashop.com for more information.
-*
-*  @author PrestaShop SA <contact@prestashop.com>
-*  @copyright  2007-2012 PrestaShop SA
-*  @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
-*  International Registered Trademark & Property of PrestaShop SA
 *}
 
 {if $opc}
@@ -63,22 +43,20 @@
 	{/if}
 {/if}
 
-<script type="text/javascript">
-// <![CDATA[
+<script>
 	{if !$opc}
-	var orderProcess = 'order';
-	var currencySign = '{$currencySign|html_entity_decode:2:"UTF-8"}';
-	var currencyRate = '{$currencyRate|floatval}';
-	var currencyFormat = '{$currencyFormat|intval}';
-	var currencyBlank = '{$currencyBlank|intval}';
-	var txtProduct = "{l s='product' js=1}";
-	var txtProducts = "{l s='products' js=1}";
+		var orderProcess = 'order',
+			currencySign = '{$currencySign|html_entity_decode:2:"UTF-8"}',
+			currencyRate = '{$currencyRate|floatval}',
+			currencyFormat = '{$currencyFormat|intval}',
+			currencyBlank = '{$currencyBlank|intval}',
+			txtProduct = "{l s='product' js=1}",
+			txtProducts = "{l s='products' js=1}";
 	{/if}
-	
-	var addressMultishippingUrl = "{$link->getPageLink('address', true, NULL, "back={$back_order_page}?step=1{'&multi-shipping=1'|urlencode}{if $back}&mod={$back|urlencode}{/if}")}";
-	var addressUrl = "{$link->getPageLink('address', true, NULL, "back={$back_order_page}?step=1{if $back}&mod={$back}{/if}")}";
 
-	var formatedAddressFieldsValuesList = new Array();
+	var addressMultishippingUrl = "{$link->getPageLink('address', true, NULL, "back={$back_order_page}?step=1{'&multi-shipping=1'|urlencode}{if $back}&mod={$back|urlencode}{/if}")}",
+		addressUrl = "{$link->getPageLink('address', true, NULL, "back={$back_order_page}?step=1{if $back}&mod={$back}{/if}")}",
+		formatedAddressFieldsValuesList = new Array();
 
 	{foreach from=$formatedAddressFieldsValuesList key=id_address item=type}
 		formatedAddressFieldsValuesList[{$id_address}] =
@@ -168,7 +146,7 @@
 	{assign var='current_step' value='address'}
 	{include file="$tpl_dir./order-steps.tpl"}
 	{include file="$tpl_dir./errors.tpl"}
-	
+
 	{if !$multi_shipping && {Configuration::get('PS_ALLOW_MULTISHIPPING')} && !$cart->isVirtualCart()}
 		<div class="button_multishipping_mode" id="multishipping_mode_box">
 			<div class="title">{l s='Multi-shipping'}</div>
@@ -194,13 +172,13 @@
 					</a>
 				</div>
 			</div>
-			<script type="text/javascript">
+			<script>
 				{if $is_multi_address_delivery}
-				var multishipping_mode = true;
+					var multishipping_mode = true;
 				{else}
-				var multishipping_mode = false;
+					var multishipping_mode = false;
 				{/if}
-				var open_multishipping_fancybox = {$open_multishipping_fancybox|intval};
+					var open_multishipping_fancybox = {$open_multishipping_fancybox|intval};
 			</script>
 		</div>
 	{/if}
@@ -215,7 +193,7 @@
 			{foreach from=$addresses key=k item=address}
 				<option value="{$address.id_address|intval}" {if $address.id_address == $cart->id_address_delivery}selected="selected"{/if}>{$address.alias|escape:'htmlall':'UTF-8'}</option>
 			{/foreach}
-			
+
 			</select>
 		</p>
 		<p class="checkbox addressesAreEquals" {if $cart->isVirtualCart()}style="display:none;"{/if}>
@@ -233,7 +211,7 @@
 			{/section}
 			</select>
 			{else}
-				<a style="margin-left: 221px;" href="{$link->getPageLink('address', true, NULL, "back={$back_order_page}?step=1&select_address=1{if $back}&mod={$back}{/if}")}" title="{l s='Add'}" class="button_large">{l s='Add a new address'}</a>
+				<a href="{$link->getPageLink('address', true, NULL, "back={$back_order_page}?step=1&select_address=1{if $back}&mod={$back}{/if}")}" title="{l s='Add'}" class="button_large">{l s='Add a new address'}</a>
 			{/if}
 		</p>
 		<div class="clearfix">
@@ -253,13 +231,13 @@
 		{/if}
 	</div>
 {if !$opc}
-	<p class="cart_navigation submit">
-		<input type="hidden" class="hidden" name="step" value="2" />
-		<input type="hidden" name="back" value="{$back}" />
-		<a href="{$link->getPageLink($back_order_page, true, NULL, "step=0{if $back}&back={$back}{/if}")}" title="{l s='Previous'}" class="button">&laquo; {l s='Previous'}</a>
-		<input type="submit" name="processAddress" value="{l s='Next'} &raquo;" class="exclusive" />
-	</p>
-</form>
+		<p class="cart_navigation submit">
+			<input type="hidden" class="hidden" name="step" value="2">
+			<input type="hidden" name="back" value="{$back}">
+			<a href="{$link->getPageLink($back_order_page, true, NULL, "step=0{if $back}&back={$back}{/if}")}" title="{l s='Previous'}" class="button">&laquo; {l s='Previous'}</a>
+			<input type="submit" name="processAddress" value="{l s='Next'} &raquo;" class="exclusive">
+		</p>
+	</form>
 {else}
-</div>
+	</div>
 {/if}

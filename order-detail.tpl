@@ -1,26 +1,6 @@
 {*
-* 2007-2012 PrestaShop
 *
-* NOTICE OF LICENSE
 *
-* This source file is subject to the Academic Free License (AFL 3.0)
-* that is bundled with this package in the file LICENSE.txt.
-* It is also available through the world-wide-web at this URL:
-* http://opensource.org/licenses/afl-3.0.php
-* If you did not receive a copy of the license and are unable to
-* obtain it through the world-wide-web, please send an email
-* to license@prestashop.com so we can send you a copy immediately.
-*
-* DISCLAIMER
-*
-* Do not edit or add to this file if you wish to upgrade PrestaShop to newer
-* versions in the future. If you wish to customize PrestaShop for your
-* needs please refer to http://www.prestashop.com for more information.
-*
-*  @author PrestaShop SA <contact@prestashop.com>
-*  @copyright  2007-2012 PrestaShop SA
-*  @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
-*  International Registered Trademark & Property of PrestaShop SA
 *}
 
 <form action="{if isset($opc) && $opc}{$link->getPageLink('order-opc', true)}{else}{$link->getPageLink('order', true)}{/if}" method="post" class="submit">
@@ -38,15 +18,14 @@
 <p><strong>{l s='Payment method:'}</strong> <span class="color-myaccount">{$order->payment|escape:'htmlall':'UTF-8'}</span></p>
 {if $invoice AND $invoiceAllowed}
 <p>
-	<img src="{$img_dir}icon/pdf.gif" alt="" class="icon" />
 	<a target="_blank" href="{$link->getPageLink('pdf-invoice', true)}?id_order={$order->id|intval}{if $is_guest}&secure_key={$order->secure_key}{/if}">{l s='Download your invoice as a PDF file'}</a>
 </p>
 {/if}
 {if $order->recyclable}
-<p><img src="{$img_dir}icon/recyclable.gif" alt="" class="icon" />&nbsp;{l s='You have given permission to receive your order in recycled packaging.'}</p>
+<p>{l s='You have given permission to receive your order in recycled packaging.'}</p>
 {/if}
 {if $order->gift}
-	<p><img src="{$img_dir}icon/gift.gif" alt="" class="icon" />&nbsp;{l s='You requested gift-wrapping for your order.'}</p>
+	<p>{l s='You requested gift-wrapping for your order.'}</p>
 	<p>{l s='Message:'} {$order->gift_message|nl2br}</p>
 {/if}
 </div>
@@ -100,7 +79,7 @@
 		{elseif $field_item eq "address2" && $address_delivery->address2}<li class="address_address2">{$address_delivery->address2|escape:'htmlall':'UTF-8'}</li>
 		{elseif $field_item eq "phone_mobile" && $address_delivery->phone_mobile}<li class="address_phone_mobile">{$address_delivery->phone_mobile|escape:'htmlall':'UTF-8'}</li>
 		{else}
-				{assign var=address_words value=" "|explode:$field_item} 
+				{assign var=address_words value=" "|explode:$field_item}
 				<li>{foreach from=$address_words item=word_item name="word_loop"}{if !$smarty.foreach.word_loop.first} {/if}<span class="address_{$word_item|replace:',':''}">{$deliveryAddressFormatedValues[$word_item|replace:',':'']|escape:'htmlall':'UTF-8'}</span>{/foreach}</li>
 		{/if}
 	{/foreach}
@@ -362,7 +341,7 @@
 		<table class="detail_step_by_step std">
 			<thead>
 				<tr>
-					<th class="first_item" style="width:150px;">{l s='From'}</th>
+					<th class="first_item">{l s='From'}</th>
 					<th class="last_item">{l s='Message'}</th>
 				</tr>
 			</thead>
@@ -402,7 +381,7 @@
 		<p>{l s='If you would like to add a comment about your order, please write it below.'}</p>
 		<p>
 		<label for="id_product">{l s='Product'}</label>
-			<select name="id_product" style="width:300px;">
+			<select name="id_product">
 				<option value="0">{l s='-- Choose --'}</option>
 				{foreach from=$products item=product name=products}
 					<option value="{$product.product_id}">{$product.product_name}</option>
@@ -418,5 +397,5 @@
 		</p>
 	</form>
 {else}
-<p><img src="{$img_dir}icon/infos.gif" alt="" class="icon" />&nbsp;{l s='You cannot make a merchandise return with a guest account'}</p>
+<p>{l s='You cannot make a merchandise return with a guest account'}</p>
 {/if}
