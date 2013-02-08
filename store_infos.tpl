@@ -18,8 +18,7 @@
 <table>
 	{foreach from=$days_datas  item=one_day}
 		<tr>
-			<td>{l s=$one_day.day}</td>
-			<td>{$one_day.hours}</td>
+			<td>{l s=$one_day.day}</td><td>{$one_day.hours}</td>
 		</tr>
 	{/foreach}
 </table>

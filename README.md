@@ -12,4 +12,4 @@ It's not supposed to be something interesting to share, putting this on Github i
 
 ## Version
 
-Prestashop v1.5.2
+Prestashop v1.5.3

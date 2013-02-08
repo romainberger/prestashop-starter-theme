@@ -20,15 +20,13 @@
 {/if}
 
 <script>
-	//<![CDATA[
 	$(document).ready(function() {
 		$('.selectProductSort').change(function() {
-			var requestSortProducts = '{$request}';
-			var splitData = $(this).val().split(':');
+			var requestSortProducts = '{$request}',
+				splitData = $(this).val().split(':');
 			document.location.href = requestSortProducts + ((requestSortProducts.indexOf('?') < 0) ? '?' : '&') + 'orderby=' + splitData[0] + '&orderway=' + splitData[1];
 		});
 	});
-	//]]>
 </script>
 
 <form id="productsSortForm" action="{$request|escape:'htmlall':'UTF-8'}">

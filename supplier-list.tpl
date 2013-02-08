@@ -11,6 +11,7 @@
 {if isset($errors) AND $errors}
 	{include file="$tpl_dir./errors.tpl"}
 {else}
+
 	<p class="nbrmanufacturer">{strip}
 		<span class="bold">
 			{if $nbSuppliers == 0}{l s='There are no suppliers.'}

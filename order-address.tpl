@@ -44,21 +44,19 @@
 {/if}
 
 <script>
-// <![CDATA[
 	{if !$opc}
 		var orderProcess = 'order',
 			currencySign = '{$currencySign|html_entity_decode:2:"UTF-8"}',
 			currencyRate = '{$currencyRate|floatval}',
 			currencyFormat = '{$currencyFormat|intval}',
 			currencyBlank = '{$currencyBlank|intval}',
-			txtProduct = "{l s='product'}",
-			txtProducts = "{l s='products'}";
+			txtProduct = "{l s='product' js=1}",
+			txtProducts = "{l s='products' js=1}";
 	{/if}
 
-	var addressMultishippingUrl = "{$link->getPageLink('address', true, NULL, "back={$back_order_page}?step=1{'&multi-shipping=1'|urlencode}{if $back}&mod={$back|urlencode}{/if}")}";
-	var addressUrl = "{$link->getPageLink('address', true, NULL, "back={$back_order_page}?step=1{if $back}&mod={$back}{/if}")}";
-
-	var formatedAddressFieldsValuesList = new Array();
+	var addressMultishippingUrl = "{$link->getPageLink('address', true, NULL, "back={$back_order_page}?step=1{'&multi-shipping=1'|urlencode}{if $back}&mod={$back|urlencode}{/if}")}",
+		addressUrl = "{$link->getPageLink('address', true, NULL, "back={$back_order_page}?step=1{if $back}&mod={$back}{/if}")}",
+		formatedAddressFieldsValuesList = new Array();
 
 	{foreach from=$formatedAddressFieldsValuesList key=id_address item=type}
 		formatedAddressFieldsValuesList[{$id_address}] =
@@ -76,16 +74,18 @@
 		{rdelim}
 	{/foreach}
 
-	function getAddressesTitles() {
+	function getAddressesTitles()
+	{
 		return {
-						'invoice': "{l s='Your billing address'}",
-						'delivery': "{l s='Your delivery address'}"
+						'invoice': "{l s='Your billing address' js=1}",
+						'delivery': "{l s='Your delivery address' js=1}"
 			};
 
 	}
 
 
-	function buildAddressBlock(id_address, address_type, dest_comp) {
+	function buildAddressBlock(id_address, address_type, dest_comp)
+	{
 		var adr_titles_vals = getAddressesTitles();
 		var li_content = formatedAddressFieldsValuesList[id_address]['formated_fields_values'];
 		var ordered_fields_name = ['title'];
@@ -96,16 +96,19 @@
 		dest_comp.html('');
 
 		li_content['title'] = adr_titles_vals[address_type];
-		li_content['update'] = '<a href="{$link->getPageLink('address', true, NULL, "id_address")}'+id_address+'&amp;back={$back_order_page}?step=1{if $back}&mod={$back}{/if}" title="{l s='Update'}">&raquo; {l s='Update'}</a>';
+		li_content['update'] = '<a href="{$link->getPageLink('address', true, NULL, "id_address")}'+id_address+'&amp;back={$back_order_page}?step=1{if $back}&mod={$back}{/if}" title="{l s='Update' js=1}">&raquo; {l s='Update' js=1}</a>';
 
 		appendAddressList(dest_comp, li_content, ordered_fields_name);
 	}
 
-	function appendAddressList(dest_comp, values, fields_name) {
-		for (var item in fields_name) {
+	function appendAddressList(dest_comp, values, fields_name)
+	{
+		for (var item in fields_name)
+		{
 			var name = fields_name[item];
 			var value = getFieldValue(name, values);
-			if (value != "") {
+			if (value != "")
+			{
 				var new_li = document.createElement('li');
 				new_li.className = 'address_'+ name;
 				new_li.innerHTML = getFieldValue(name, values);
@@ -114,32 +117,30 @@
 		}
 	}
 
-	function getFieldValue(field_name, values) {
-		var reg = new RegExp("[ ]+", "g");
+	function getFieldValue(field_name, values)
+	{
+		var reg=new RegExp("[ ]+", "g");
+
 		var items = field_name.split(reg);
 		var vals = new Array();
 
-		for (var field_item in items) {
+		for (var field_item in items)
+		{
 			items[field_item] = items[field_item].replace(",", "");
 			vals.push(values[items[field_item]]);
 		}
-
-		return vals.join(' ');
+		return vals.join(" ");
 	}
 
 //]]>
 </script>
 
 {if !$opc}
-	{capture name=path}{l s='Addresses'}{/capture}
-	{include file="$tpl_dir./breadcrumb.tpl"}
+{capture name=path}{l s='Addresses'}{/capture}
+{include file="$tpl_dir./breadcrumb.tpl"}
 {/if}
 
-{if !$opc}
-	<h1>{l s='Addresses'}</h1>
-{else}
-	<h2><span>1</span> {l s='Addresses'}</h2>
-{/if}
+{if !$opc}<h1>{l s='Addresses'}</h1>{else}<h2><span>1</span> {l s='Addresses'}</h2>{/if}
 
 {if !$opc}
 	{assign var='current_step' value='address'}
@@ -225,18 +226,18 @@
 		{if !$opc}
 		<div id="ordermsg" class="clearfix">
 			<p class="txt">{l s='If you would like to add a comment about your order, please write it below.'}</p>
-			<p class="textarea"><textarea name="message">{if isset($oldMessage)}{$oldMessage}{/if}</textarea></p>
+			<p class="textarea"><textarea cols="60" rows="3" name="message">{if isset($oldMessage)}{$oldMessage}{/if}</textarea></p>
 		</div>
 		{/if}
 	</div>
 {if !$opc}
-	<p class="cart_navigation submit">
-		<input type="hidden" class="hidden" name="step" value="2" />
-		<input type="hidden" name="back" value="{$back}" />
-		<a href="{$link->getPageLink($back_order_page, true, NULL, "step=0{if $back}&back={$back}{/if}")}" title="{l s='Previous'}" class="button">{l s='Previous'}</a>
-		<input type="submit" name="processAddress" value="{l s='Next'}" class="exclusive" />
-	</p>
-</form>
+		<p class="cart_navigation submit">
+			<input type="hidden" class="hidden" name="step" value="2">
+			<input type="hidden" name="back" value="{$back}">
+			<a href="{$link->getPageLink($back_order_page, true, NULL, "step=0{if $back}&back={$back}{/if}")}" title="{l s='Previous'}" class="button">&laquo; {l s='Previous'}</a>
+			<input type="submit" name="processAddress" value="{l s='Next'} &raquo;" class="exclusive">
+		</p>
+	</form>
 {else}
-</div>
+	</div>
 {/if}

@@ -23,16 +23,13 @@
 				<th class="item">{l s='Payment'}</th>
 				<th class="item">{l s='Status'}</th>
 				<th class="item">{l s='Invoice'}</th>
-				<th class="last_item" style="width:65px">&nbsp;</th>
+				<th class="last_item"></th>
 			</tr>
 		</thead>
 		<tbody>
 		{foreach from=$orders item=order name=myLoop}
 			<tr class="{if $smarty.foreach.myLoop.first}first_item{elseif $smarty.foreach.myLoop.last}last_item{else}item{/if} {if $smarty.foreach.myLoop.index % 2}alternate_item{/if}">
 				<td class="history_link bold">
-					{if isset($order.invoice) && $order.invoice && isset($order.virtual) && $order.virtual}
-						{l s='Download'}
-					{/if}
 					<a class="color-myaccount" href="javascript:showOrder(1, {$order.id_order|intval}, '{$link->getPageLink('order-detail', true)}');">{Order::getUniqReferenceOf($order.id_order)}</a>
 				</td>
 				<td class="history_date bold">{dateFormat date=$order.date_add full=0}</td>
@@ -41,25 +38,24 @@
 				<td class="history_state">{if isset($order.order_state)}{$order.order_state|escape:'htmlall':'UTF-8'}{/if}</td>
 				<td class="history_invoice">
 				{if (isset($order.invoice) && $order.invoice && isset($order.invoice_number) && $order.invoice_number) && isset($invoiceAllowed) && $invoiceAllowed == true}
-					<a href="{$link->getPageLink('pdf-invoice', true, NULL, "id_order={$order.id_order}")}" title="{l s='Invoice'}" target="_blank"></a>
 					<a href="{$link->getPageLink('pdf-invoice', true, NULL, "id_order={$order.id_order}")}" title="{l s='Invoice'}" target="_blank">{l s='PDF'}</a>
 				{else}-{/if}
 				</td>
 				<td class="history_detail">
 					<a class="color-myaccount" href="javascript:showOrder(1, {$order.id_order|intval}, '{$link->getPageLink('order-detail', true)}');">{l s='details'}</a>
 					{if isset($opc) && $opc}
-						<a href="{$link->getPageLink('order-opc', true, NULL, "submitReorder&id_order={$order.id_order}")}" title="{l s='Reorder'}">
+					<a href="{$link->getPageLink('order-opc', true, NULL, "submitReorder&id_order={$order.id_order}")}" title="{l s='Reorder'}">
 					{else}
-						<a href="{$link->getPageLink('order', true, NULL, "submitReorder&id_order={$order.id_order}")}" title="{l s='Reorder'}">
+					<a href="{$link->getPageLink('order', true, NULL, "submitReorder&id_order={$order.id_order}")}" title="{l s='Reorder'}">
 					{/if}
-					{l s='Reorder'}
+						{l s='Reorder'}
 					</a>
 				</td>
 			</tr>
 		{/foreach}
 		</tbody>
 	</table>
-	<div id="block-order-detail" class="hidden"></div>
+	<div id="block-order-detail" class="hidden">&nbsp;</div>
 	{else}
 		<p class="warning">{l s='You have not placed any orders.'}</p>
 	{/if}

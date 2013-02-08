@@ -29,7 +29,7 @@
 			{else}
 				<!-- Category image -->
 				{if $category->id_image}
-				<div>
+				<div class="align_center">
 					<img src="{$link->getCatImageLink($category->link_rewrite, $category->id_image, 'category_default')}" alt="{$category->name|escape:'htmlall':'UTF-8'}" title="{$category->name|escape:'htmlall':'UTF-8'}" id="categoryImage" width="{$categorySize.width}" height="{$categorySize.height}" />
 				</div>
 				{/if}

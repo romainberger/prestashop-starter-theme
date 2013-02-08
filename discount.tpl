@@ -65,5 +65,5 @@
 
 <ul class="footer_links">
 	<li><a href="{$link->getPageLink('my-account', true)}">{l s='Back to your account'}</a></li>
-	<li>{l s='Home'}</a></li>
+	<li class="f_right"><a href="{$base_dir}">{l s='Home'}</a></li>
 </ul>

@@ -50,8 +50,8 @@
 	{else}
 		<form method="post" action="{$action|escape:'htmlall':'UTF-8'}#guestToCustomer" class="std">
 			<fieldset class="description_box">
-				<p>{l s='Transform your guest account into a customer account and enjoy:'}</p>
-				<ul>
+				<p class="bold">{l s='Transform your guest account into a customer account and enjoy:'}</p>
+				<ul class="bullet">
 					<li>{l s='Personalized and secure access'}</li>
 					<li>{l s='Fast and easy check out'}</li>
 					<li>{l s='Easier merchandise return'}</li>
@@ -65,14 +65,14 @@
 				<input type="hidden" name="order_reference" value="{if isset($smarty.get.order_reference)}{$smarty.get.order_reference|escape:'htmlall':'UTF-8'}{else}{if isset($smarty.post.order_reference)}{$smarty.post.order_reference|escape:'htmlall':'UTF-8'}{/if}{/if}" />
 				<input type="hidden" name="email" value="{if isset($smarty.get.email)}{$smarty.get.email|escape:'htmlall':'UTF-8'}{else}{if isset($smarty.post.email)}{$smarty.post.email|escape:'htmlall':'UTF-8'}{/if}{/if}" />
 
-				<p><input type="submit" class="exclusive_large" name="submitTransformGuestToCustomer" value="{l s='Send'}" /></p>
+				<p class="center"><input type="submit" class="exclusive_large" name="submitTransformGuestToCustomer" value="{l s='Send'}" /></p>
 			</fieldset>
 		</form>
 	{/if}
 {else}
 	{include file="$tpl_dir./errors.tpl"}
 	{if isset($show_login_link) && $show_login_link}
-		<p><a href="{$link->getPageLink('my-account', true)}">{l s='Click here to log in to your customer account'}</a><br /><br /></p>
+		<p><a href="{$link->getPageLink('my-account', true)}">{l s='Click here to log in to your customer account'}</a></p>
 	{/if}
 	<form method="post" action="{$action|escape:'htmlall':'UTF-8'}" class="std">
 		<fieldset class="description_box">
@@ -88,7 +88,7 @@
 				<input type="text" name="email" value="{if isset($smarty.get.email)}{$smarty.get.email|escape:'htmlall':'UTF-8'}{else}{if isset($smarty.post.email)}{$smarty.post.email|escape:'htmlall':'UTF-8'}{/if}{/if}" />
 			</p>
 
-			<p><input type="submit" class="button" name="submitGuestTracking" value="{l s='Send'}" /></p>
+			<p class="center"><input type="submit" class="button" name="submitGuestTracking" value="{l s='Send'}" /></p>
 		</fieldset>
 	</form>
 {/if}

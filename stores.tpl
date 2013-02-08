@@ -28,33 +28,33 @@
 	{/if}
 {else}
 	<script>
-		var map,
-			markers = [],
-			infoWindow,
-			locationSelect,
+		var map;
+		var markers = [];
+		var infoWindow;
+		var locationSelect;
 
-			defaultLat = '{$defaultLat}',
-			defaultLong = '{$defaultLong}',
+		var defaultLat = '{$defaultLat}';
+		var defaultLong = '{$defaultLong}';
 
-			translation_1 = '{l s='No stores found, try selecting a wider radius' js=1}',
-			translation_2 = '{l s='store found - see details:' js=1}',
-			translation_3 = '{l s='stores found - see all results:' js=1}',
-			translation_4 = '{l s='Phone:' js=1}',
-			translation_5 = '{l s='Get Directions' js=1}',
-			translation_6 = '{l s='Not found' js=1}',
+		var translation_1 = '{l s='No stores found, try selecting a wider radius' js=1}';
+		var translation_2 = '{l s='store found - see details:' js=1}';
+		var translation_3 = '{l s='stores found - see all results:' js=1}';
+		var translation_4 = '{l s='Phone:' js=1}';
+		var translation_5 = '{l s='Get Directions' js=1}';
+		var translation_6 = '{l s='Not found' js=1}';
 
-			hasStoreIcon = '{$hasStoreIcon}',
-			distance_unit = '{$distance_unit}',
-			img_store_dir = '{$img_store_dir}',
-			img_ps_dir = '{$img_ps_dir}',
-			searchUrl = '{$searchUrl}',
-			logo_store = '{$logo_store}'
+		var hasStoreIcon = '{$hasStoreIcon}';
+		var distance_unit = '{$distance_unit}';
+		var img_store_dir = '{$img_store_dir}';
+		var img_ps_dir = '{$img_ps_dir}';
+		var searchUrl = '{$searchUrl}';
+		var logo_store = '{$logo_store}';
 	</script>
 
 	<p>{l s='Enter a location (e.g. zip/postal code, address, city or country) in order to find the nearest stores.'}</p>
 	<p>
 		<label for="addressInput">{l s='Your location:'}</label>
-		<input type="text" name="location" id="addressInput" value="{l s='Address, zip/postal code, city, state or country'}" onclick="this.value='';">
+		<input type="text" name="location" id="addressInput" value="{l s='Address, zip/postal code, city, state or country'}" onclick="this.value='';" />
 	</p>
 	<p>
 		<label for="radiusSelect">{l s='Radius:'}</label>

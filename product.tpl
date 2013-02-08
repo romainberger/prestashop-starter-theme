@@ -6,126 +6,124 @@
 {include file="$tpl_dir./errors.tpl"}
 {if $errors|@count == 0}
 <script>
-// <![CDATA[
 
-// PrestaShop internal settings
-var currencySign = '{$currencySign|html_entity_decode:2:"UTF-8"}';
-var currencyRate = '{$currencyRate|floatval}';
-var currencyFormat = '{$currencyFormat|intval}';
-var currencyBlank = '{$currencyBlank|intval}';
-var taxRate = {$tax_rate|floatval};
-var jqZoomEnabled = {if $jqZoomEnabled}true{else}false{/if};
+	// PrestaShop internal settings
+	var currencySign = '{$currencySign|html_entity_decode:2:"UTF-8"}';
+	var currencyRate = '{$currencyRate|floatval}';
+	var currencyFormat = '{$currencyFormat|intval}';
+	var currencyBlank = '{$currencyBlank|intval}';
+	var taxRate = {$tax_rate|floatval};
+	var jqZoomEnabled = {if $jqZoomEnabled}true{else}false{/if};
 
-//JS Hook
-var oosHookJsCodeFunctions = new Array();
+	//JS Hook
+	var oosHookJsCodeFunctions = new Array();
 
-// Parameters
-var id_product = '{$product->id|intval}';
-var productHasAttributes = {if isset($groups)}true{else}false{/if};
-var quantitiesDisplayAllowed = {if $display_qties == 1}true{else}false{/if};
-var quantityAvailable = {if $display_qties == 1 && $product->quantity}{$product->quantity}{else}0{/if};
-var allowBuyWhenOutOfStock = {if $allow_oosp == 1}true{else}false{/if};
-var availableNowValue = '{$product->available_now|escape:'quotes':'UTF-8'}';
-var availableLaterValue = '{$product->available_later|escape:'quotes':'UTF-8'}';
-var productPriceTaxExcluded = {$product->getPriceWithoutReduct(true)|default:'null'} - {$product->ecotax};
-var reduction_percent = {if $product->specificPrice AND $product->specificPrice.reduction AND $product->specificPrice.reduction_type == 'percentage'}{$product->specificPrice.reduction*100}{else}0{/if};
-var reduction_price = {if $product->specificPrice AND $product->specificPrice.reduction AND $product->specificPrice.reduction_type == 'amount'}{$product->specificPrice.reduction|floatval}{else}0{/if};
-var specific_price = {if $product->specificPrice AND $product->specificPrice.price}{$product->specificPrice.price}{else}0{/if};
-var product_specific_price = new Array();
-{foreach from=$product->specificPrice key='key_specific_price' item='specific_price_value'}
-	product_specific_price['{$key_specific_price}'] = '{$specific_price_value}';
-{/foreach}
-var specific_currency = {if $product->specificPrice AND $product->specificPrice.id_currency}true{else}false{/if};
-var group_reduction = '{$group_reduction}';
-var default_eco_tax = {$product->ecotax};
-var ecotaxTax_rate = {$ecotaxTax_rate};
-var currentDate = '{$smarty.now|date_format:'%Y-%m-%d %H:%M:%S'}';
-var maxQuantityToAllowDisplayOfLastQuantityMessage = {$last_qties};
-var noTaxForThisProduct = {if $no_tax == 1}true{else}false{/if};
-var displayPrice = {$priceDisplay};
-var productReference = '{$product->reference|escape:'htmlall':'UTF-8'}';
-var productAvailableForOrder = {if (isset($restricted_country_mode) AND $restricted_country_mode) OR $PS_CATALOG_MODE}'0'{else}'{$product->available_for_order}'{/if};
-var productShowPrice = '{if !$PS_CATALOG_MODE}{$product->show_price}{else}0{/if}';
-var productUnitPriceRatio = '{$product->unit_price_ratio}';
-var idDefaultImage = {if isset($cover.id_image_only)}{$cover.id_image_only}{else}0{/if};
-var stock_management = {$stock_management|intval};
-{if !isset($priceDisplayPrecision)}
-	{assign var='priceDisplayPrecision' value=2}
-{/if}
-{if !$priceDisplay || $priceDisplay == 2}
-	{assign var='productPrice' value=$product->getPrice(true, $smarty.const.NULL, $priceDisplayPrecision)}
-	{assign var='productPriceWithoutRedution' value=$product->getPriceWithoutReduct(false, $smarty.const.NULL)}
-{elseif $priceDisplay == 1}
-	{assign var='productPrice' value=$product->getPrice(false, $smarty.const.NULL, $priceDisplayPrecision)}
-	{assign var='productPriceWithoutRedution' value=$product->getPriceWithoutReduct(true, $smarty.const.NULL)}
-{/if}
+	// Parameters
+	var id_product = '{$product->id|intval}';
+	var productHasAttributes = {if isset($groups)}true{else}false{/if};
+	var quantitiesDisplayAllowed = {if $display_qties == 1}true{else}false{/if};
+	var quantityAvailable = {if $display_qties == 1 && $product->quantity}{$product->quantity}{else}0{/if};
+	var allowBuyWhenOutOfStock = {if $allow_oosp == 1}true{else}false{/if};
+	var availableNowValue = '{$product->available_now|escape:'quotes':'UTF-8'}';
+	var availableLaterValue = '{$product->available_later|escape:'quotes':'UTF-8'}';
+	var productPriceTaxExcluded = {$product->getPriceWithoutReduct(true)|default:'null'} - {$product->ecotax};
+	var reduction_percent = {if $product->specificPrice AND $product->specificPrice.reduction AND $product->specificPrice.reduction_type == 'percentage'}{$product->specificPrice.reduction*100}{else}0{/if};
+	var reduction_price = {if $product->specificPrice AND $product->specificPrice.reduction AND $product->specificPrice.reduction_type == 'amount'}{$product->specificPrice.reduction|floatval}{else}0{/if};
+	var specific_price = {if $product->specificPrice AND $product->specificPrice.price}{$product->specificPrice.price}{else}0{/if};
+	var product_specific_price = new Array();
+	{foreach from=$product->specificPrice key='key_specific_price' item='specific_price_value'}
+		product_specific_price['{$key_specific_price}'] = '{$specific_price_value}';
+	{/foreach}
+	var specific_currency = {if $product->specificPrice AND $product->specificPrice.id_currency}true{else}false{/if};
+	var group_reduction = '{$group_reduction}';
+	var default_eco_tax = {$product->ecotax};
+	var ecotaxTax_rate = {$ecotaxTax_rate};
+	var currentDate = '{$smarty.now|date_format:'%Y-%m-%d %H:%M:%S'}';
+	var maxQuantityToAllowDisplayOfLastQuantityMessage = {$last_qties};
+	var noTaxForThisProduct = {if $no_tax == 1}true{else}false{/if};
+	var displayPrice = {$priceDisplay};
+	var productReference = '{$product->reference|escape:'htmlall':'UTF-8'}';
+	var productAvailableForOrder = {if (isset($restricted_country_mode) AND $restricted_country_mode) OR $PS_CATALOG_MODE}'0'{else}'{$product->available_for_order}'{/if};
+	var productShowPrice = '{if !$PS_CATALOG_MODE}{$product->show_price}{else}0{/if}';
+	var productUnitPriceRatio = '{$product->unit_price_ratio}';
+	var idDefaultImage = {if isset($cover.id_image_only)}{$cover.id_image_only}{else}0{/if};
+	var stock_management = {$stock_management|intval};
+	{if !isset($priceDisplayPrecision)}
+		{assign var='priceDisplayPrecision' value=2}
+	{/if}
+	{if !$priceDisplay || $priceDisplay == 2}
+		{assign var='productPrice' value=$product->getPrice(true, $smarty.const.NULL, $priceDisplayPrecision)}
+		{assign var='productPriceWithoutReduction' value=$product->getPriceWithoutReduct(false, $smarty.const.NULL)}
+	{elseif $priceDisplay == 1}
+		{assign var='productPrice' value=$product->getPrice(false, $smarty.const.NULL, $priceDisplayPrecision)}
+		{assign var='productPriceWithoutReduction' value=$product->getPriceWithoutReduct(true, $smarty.const.NULL)}
+	{/if}
 
-var productPriceWithoutRedution = '{$productPriceWithoutRedution}';
-var productPrice = '{$productPrice}';
+	var productPriceWithoutReduction = '{$productPriceWithoutReduction}';
+	var productPrice = '{$productPrice}';
 
-// Customizable field
-var img_ps_dir = '{$img_ps_dir}';
-var customizationFields = new Array();
-{assign var='imgIndex' value=0}
-{assign var='textFieldIndex' value=0}
-{foreach from=$customizationFields item='field' name='customizationFields'}
-	{assign var="key" value="pictures_`$product->id`_`$field.id_customization_field`"}
-	customizationFields[{$smarty.foreach.customizationFields.index|intval}] = new Array();
-	customizationFields[{$smarty.foreach.customizationFields.index|intval}][0] = '{if $field.type|intval == 0}img{$imgIndex++}{else}textField{$textFieldIndex++}{/if}';
-	customizationFields[{$smarty.foreach.customizationFields.index|intval}][1] = {if $field.type|intval == 0 && isset($pictures.$key) && $pictures.$key}2{else}{$field.required|intval}{/if};
-{/foreach}
+	// Customizable field
+	var img_ps_dir = '{$img_ps_dir}';
+	var customizationFields = new Array();
+	{assign var='imgIndex' value=0}
+	{assign var='textFieldIndex' value=0}
+	{foreach from=$customizationFields item='field' name='customizationFields'}
+		{assign var="key" value="pictures_`$product->id`_`$field.id_customization_field`"}
+		customizationFields[{$smarty.foreach.customizationFields.index|intval}] = new Array();
+		customizationFields[{$smarty.foreach.customizationFields.index|intval}][0] = '{if $field.type|intval == 0}img{$imgIndex++}{else}textField{$textFieldIndex++}{/if}';
+		customizationFields[{$smarty.foreach.customizationFields.index|intval}][1] = {if $field.type|intval == 0 && isset($pictures.$key) && $pictures.$key}2{else}{$field.required|intval}{/if};
+	{/foreach}
 
-// Images
-var img_prod_dir = '{$img_prod_dir}';
-var combinationImages = new Array();
+	// Images
+	var img_prod_dir = '{$img_prod_dir}';
+	var combinationImages = new Array();
 
-{if isset($combinationImages)}
-	{foreach from=$combinationImages item='combination' key='combinationId' name='f_combinationImages'}
-		combinationImages[{$combinationId}] = new Array();
-		{foreach from=$combination item='image' name='f_combinationImage'}
-			combinationImages[{$combinationId}][{$smarty.foreach.f_combinationImage.index}] = {$image.id_image|intval};
+	{if isset($combinationImages)}
+		{foreach from=$combinationImages item='combination' key='combinationId' name='f_combinationImages'}
+			combinationImages[{$combinationId}] = new Array();
+			{foreach from=$combination item='image' name='f_combinationImage'}
+				combinationImages[{$combinationId}][{$smarty.foreach.f_combinationImage.index}] = {$image.id_image|intval};
+			{/foreach}
 		{/foreach}
-	{/foreach}
-{/if}
+	{/if}
 
-combinationImages[0] = new Array();
-{if isset($images)}
-	{foreach from=$images item='image' name='f_defaultImages'}
-		combinationImages[0][{$smarty.foreach.f_defaultImages.index}] = {$image.id_image};
-	{/foreach}
-{/if}
+	combinationImages[0] = new Array();
+	{if isset($images)}
+		{foreach from=$images item='image' name='f_defaultImages'}
+			combinationImages[0][{$smarty.foreach.f_defaultImages.index}] = {$image.id_image};
+		{/foreach}
+	{/if}
 
-// Translations
-var doesntExist = '{l s='This combination does not exist for this product. Please choose another.' js=1}';
-var doesntExistNoMore = '{l s='This product is no longer in stock' js=1}';
-var doesntExistNoMoreBut = '{l s='with those attributes but is available with others' js=1}';
-var uploading_in_progress = '{l s='Uploading in progress, please wait...' js=1}';
-var fieldRequired = '{l s='Please fill in all required fields, then save the customization.' js=1}';
-{if isset($groups)}
-	// Combinations
-	{foreach from=$combinations key=idCombination item=combination}
-		var specific_price_combination = new Array();
-		specific_price_combination['reduction_percent'] = {if $combination.specific_price AND $combination.specific_price.reduction AND $combination.specific_price.reduction_type == 'percentage'}{$combination.specific_price.reduction*100}{else}0{/if};
-		specific_price_combination['reduction_price'] = {if $combination.specific_price AND $combination.specific_price.reduction AND $combination.specific_price.reduction_type == 'amount'}{$combination.specific_price.reduction}{else}0{/if};
-		specific_price_combination['price'] = {if $combination.specific_price AND $combination.specific_price.price}{$combination.specific_price.price}{else}0{/if};
-		specific_price_combination['reduction_type'] = '{if $combination.specific_price}{$combination.specific_price.reduction_type}{/if}';
-		addCombination({$idCombination|intval}, new Array({$combination.list}), {$combination.quantity}, {$combination.price}, {$combination.ecotax}, {$combination.id_image}, '{$combination.reference|addslashes}', {$combination.unit_impact}, {$combination.minimal_quantity}, '{$combination.available_date}', specific_price_combination);
-	{/foreach}
-{/if}
+	// Translations
+	var doesntExist = '{l s='This combination does not exist for this product. Please choose another.' js=1}';
+	var doesntExistNoMore = '{l s='This product is no longer in stock' js=1}';
+	var doesntExistNoMoreBut = '{l s='with those attributes but is available with others' js=1}';
+	var uploading_in_progress = '{l s='Uploading in progress, please wait...' js=1}';
+	var fieldRequired = '{l s='Please fill in all required fields, then save the customization.' js=1}';
+	{if isset($groups)}
+		// Combinations
+		{foreach from=$combinations key=idCombination item=combination}
+			var specific_price_combination = new Array();
+			specific_price_combination['reduction_percent'] = {if $combination.specific_price AND $combination.specific_price.reduction AND $combination.specific_price.reduction_type == 'percentage'}{$combination.specific_price.reduction*100}{else}0{/if};
+			specific_price_combination['reduction_price'] = {if $combination.specific_price AND $combination.specific_price.reduction AND $combination.specific_price.reduction_type == 'amount'}{$combination.specific_price.reduction}{else}0{/if};
+			specific_price_combination['price'] = {if $combination.specific_price AND $combination.specific_price.price}{$combination.specific_price.price}{else}0{/if};
+			specific_price_combination['reduction_type'] = '{if $combination.specific_price}{$combination.specific_price.reduction_type}{/if}';
+			addCombination({$idCombination|intval}, new Array({$combination.list}), {$combination.quantity}, {$combination.price}, {$combination.ecotax}, {$combination.id_image}, '{$combination.reference|addslashes}', {$combination.unit_impact}, {$combination.minimal_quantity}, '{$combination.available_date}', specific_price_combination);
+		{/foreach}
+	{/if}
 
-{if isset($attributesCombinations)}
-	// Combinations attributes informations
-	var attributesCombinations = new Array();
-	{foreach from=$attributesCombinations key=id item=aC}
-		tabInfos = new Array();
-		tabInfos['id_attribute'] = '{$aC.id_attribute|intval}';
-		tabInfos['attribute'] = '{$aC.attribute}';
-		tabInfos['group'] = '{$aC.group}';
-		tabInfos['id_attribute_group'] = '{$aC.id_attribute_group|intval}';
-		attributesCombinations.push(tabInfos);
-	{/foreach}
-{/if}
-//]]>
+	{if isset($attributesCombinations)}
+		// Combinations attributes informations
+		var attributesCombinations = new Array();
+		{foreach from=$attributesCombinations key=id item=aC}
+			tabInfos = new Array();
+			tabInfos['id_attribute'] = '{$aC.id_attribute|intval}';
+			tabInfos['attribute'] = '{$aC.attribute}';
+			tabInfos['group'] = '{$aC.group}';
+			tabInfos['id_attribute_group'] = '{$aC.id_attribute_group|intval}';
+			attributesCombinations.push(tabInfos);
+		{/foreach}
+	{/if}
 </script>
 
 {include file="$tpl_dir./breadcrumb.tpl"}
@@ -350,10 +348,10 @@ var fieldRequired = '{l s='Please fill in all required fields, then save the cus
 			<div class="price">
 				{if !$priceDisplay || $priceDisplay == 2}
 					{assign var='productPrice' value=$product->getPrice(true, $smarty.const.NULL, $priceDisplayPrecision)}
-					{assign var='productPriceWithoutRedution' value=$product->getPriceWithoutReduct(false, $smarty.const.NULL)}
+					{assign var='productPriceWithoutReduction' value=$product->getPriceWithoutReduct(false, $smarty.const.NULL)}
 				{elseif $priceDisplay == 1}
 					{assign var='productPrice' value=$product->getPrice(false, $smarty.const.NULL, $priceDisplayPrecision)}
-					{assign var='productPriceWithoutRedution' value=$product->getPriceWithoutReduct(true, $smarty.const.NULL)}
+					{assign var='productPriceWithoutReduction' value=$product->getPriceWithoutReduct(true, $smarty.const.NULL)}
 				{/if}
 
 				<p class="our_price_display">
@@ -368,7 +366,7 @@ var fieldRequired = '{l s='Please fill in all required fields, then save the cus
 				{if $product->on_sale}
 					<img src="{$img_dir}onsale_{$lang_iso}.gif" alt="{l s='On sale'}" class="on_sale_img"/>
 					<span class="on_sale">{l s='On sale!'}</span>
-				{elseif $product->specificPrice AND $product->specificPrice.reduction AND $productPriceWithoutRedution > $productPrice}
+				{elseif $product->specificPrice AND $product->specificPrice.reduction AND $productPriceWithoutReduction > $productPrice}
 					<span class="discount">{l s='Reduced price!'}</span>
 				{/if}
 				{if $priceDisplay == 2}
@@ -381,8 +379,8 @@ var fieldRequired = '{l s='Please fill in all required fields, then save the cus
 			{if $product->specificPrice AND $product->specificPrice.reduction}
 				<p id="old_price"><span class="bold">
 				{if $priceDisplay >= 0 && $priceDisplay <= 2}
-					{if $productPriceWithoutRedution > $productPrice}
-						<span id="old_price_display">{convertPrice price=$productPriceWithoutRedution}</span>
+					{if $productPriceWithoutReduction > $productPrice}
+						<span id="old_price_display">{convertPrice price=$productPriceWithoutReduction}</span>
 						<!-- {if $tax_enabled && $display_tax_label == 1}
 							{if $priceDisplay == 1}{l s='tax excl.'}{else}{l s='tax incl.'}{/if}
 						{/if} -->
@@ -393,7 +391,7 @@ var fieldRequired = '{l s='Please fill in all required fields, then save the cus
 			{/if}
 			{if $packItems|@count && $productPrice < $product->getNoPackPrice()}
 				<p class="pack_price">{l s='instead of'} <span>{convertPrice price=$product->getNoPackPrice()}</span></p>
-				<br class="clear" />
+				<div class="clear"></div>
 			{/if}
 			{if $product->ecotax != 0}
 				<p class="price-ecotax">{l s='include'} <span id="ecotax_price_display">{if $priceDisplay == 2}{$ecotax_tax_exc|convertAndFormatPrice}{else}{$ecotax_tax_inc|convertAndFormatPrice}{/if}</span> {l s='for green tax'}
@@ -509,13 +507,13 @@ var fieldRequired = '{l s='Please fill in all required fields, then save the cus
 				<div class="block_content">
 					<ul>
 					{foreach from=$accessories item=accessory name=accessories_list}
-						{if ($accessory.allow_oosp || $accessory.quantity > 0) AND $accessory.available_for_order AND !isset($restricted_country_mode) AND !$PS_CATALOG_MODE}
+						{if ($accessory.allow_oosp || $accessory.quantity > 0) AND $accessory.available_for_order AND !isset($restricted_country_mode)}
 							{assign var='accessoryLink' value=$link->getProductLink($accessory.id_product, $accessory.link_rewrite, $accessory.category)}
 							<li class="ajax_block_product {if $smarty.foreach.accessories_list.first}first_item{elseif $smarty.foreach.accessories_list.last}last_item{else}item{/if} product_accessories_description">
-								<h5>
+								<p class="s_title_block">
 									<a href="{$accessoryLink|escape:'htmlall':'UTF-8'}">{$accessory.name|escape:'htmlall':'UTF-8'}</a>
 									{if $accessory.show_price AND !isset($restricted_country_mode) AND !$PS_CATALOG_MODE} - <span class="price">{if $priceDisplay != 1}{displayWtPrice p=$accessory.price}{else}{displayWtPrice p=$accessory.price_tax_exc}{/if}</span>{/if}
-								</h5>
+								</p>
 								<div class="product_desc">
 									<a href="{$accessoryLink|escape:'htmlall':'UTF-8'}" title="{$accessory.legend|escape:'htmlall':'UTF-8'}" class="product_image"><img src="{$link->getImageLink($accessory.link_rewrite, $accessory.id_image, 'medium_default')}" alt="{$accessory.legend|escape:'htmlall':'UTF-8'}" width="{$mediumSize.width}" height="{$mediumSize.height}" /></a>
 									<div class="block_description">
@@ -523,10 +521,14 @@ var fieldRequired = '{l s='Please fill in all required fields, then save the cus
 									</div>
 									<div class="clear_product_desc">&nbsp;</div>
 								</div>
+
 								<p class="clearfix">
 									<a class="button" href="{$accessoryLink|escape:'htmlall':'UTF-8'}" title="{l s='View'}">{l s='View'}</a>
+									{if !$PS_CATALOG_MODE}
 									<a class="exclusive button ajax_add_to_cart_button" href="{$link->getPageLink('cart', true, NULL, "qty=1&amp;id_product={$accessory.id_product|intval}&amp;token={$static_token}&amp;add")}" rel="ajax_id_product_{$accessory.id_product|intval}" title="{l s='Add to cart'}">{l s='Add to cart'}</a>
+									{/if}
 								</p>
+
 							</li>
 						{/if}
 					{/foreach}
@@ -580,7 +582,7 @@ var fieldRequired = '{l s='Please fill in all required fields, then save the cus
 						{if $field.type == 1}
 						<li class="customizationUploadLine{if $field.required} required{/if}">
 							<label for ="textField{$customizationField}">{assign var='key' value='textFields_'|cat:$product->id|cat:'_'|cat:$field.id_customization_field} {if !empty($field.name)}{$field.name}{/if}{if $field.required}<sup>*</sup>{/if}</label>
-							<textarea type="text" name="textField{$field.id_customization_field}" id="textField{$customizationField}" class="customization_block_input" />{if isset($textFields.$key)}{$textFields.$key|stripslashes}{/if}</textarea>
+							<textarea type="text" name="textField{$field.id_customization_field}" id="textField{$customizationField}" rows="1" cols="40" class="customization_block_input" />{if isset($textFields.$key)}{$textFields.$key|stripslashes}{/if}</textarea>
 						</li>
 						{counter}
 						{/if}
@@ -612,4 +614,3 @@ var fieldRequired = '{l s='Please fill in all required fields, then save the cus
 {/if}
 
 {/if}
-

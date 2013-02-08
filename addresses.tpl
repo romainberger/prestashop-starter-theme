@@ -56,13 +56,14 @@
 {/if}
 
 <script>
-//<![CDATA[
-	{literal}
-	$(document).ready(function() {
-			resizeAddressesBox();
-	});
-	{/literal}
-//]]>
+	//<![CDATA[
+		{literal}
+		$(document).ready(function()
+		{
+				resizeAddressesBox();
+		});
+		{/literal}
+	//]]>
 </script>
 
 {capture name=path}<a href="{$link->getPageLink('my-account', true)}">{l s='My account'}</a><span class="navigation-pipe">{$navigationPipe}</span>{l s='My addresses'}{/capture}
@@ -91,7 +92,7 @@
 				</li>
 			{/foreach}
 			<li class="address_update"><a href="{$link->getPageLink('address', true, null, "id_address={$address.object.id|intval}")}" title="{l s='Update'}">&raquo; {l s='Update'}</a></li>
-			<li class="address_delete"><a href="{$link->getPageLink('address', true, null, "id_address={$address.object.id|intval}&delete")}" onclick="return confirm('{l s='Are you sure?'}');" title="{l s='Delete'}">&raquo; {l s='Delete'}</a></li>
+			<li class="address_delete"><a href="{$link->getPageLink('address', true, null, "id_address={$address.object.id|intval}&delete")}" onclick="return confirm('{l s='Are you sure?' js=1}');" title="{l s='Delete'}">&raquo; {l s='Delete'}</a></li>
 		</ul>
 	{/foreach}
 	</div>

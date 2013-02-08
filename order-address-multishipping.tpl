@@ -39,16 +39,15 @@
 {/if}
 
 <script>
-// <![CDATA[
 	{if !$opc}
 		var orderProcess = 'order',
 			currencySign = '{$currencySign|html_entity_decode:2:"UTF-8"}',
 			currencyRate = '{$currencyRate|floatval}',
 			currencyFormat = '{$currencyFormat|intval}',
 			currencyBlank = '{$currencyBlank|intval}',
-			txtProduct = "{l s='product'}",
-			txtProducts = "{l s='products'}",
-			txtSelectAnAddressFirst = "{l s='Please start by selecting an address'}";
+			txtProduct = "{l s='product' js=1}",
+			txtProducts = "{l s='products' js=1}",
+			txtSelectAnAddressFirst = "{l s='Please start by selecting an address' js=1}";
 	{/if}
 
 	var formatedAddressFieldsValuesList = new Array();
@@ -74,13 +73,14 @@
 			'invoice': "{l s='Your billing address'}",
 			'delivery': "{l s='Your delivery address'}"
 		};
+
 	}
 
 
 	function buildAddressBlock(id_address, address_type, dest_comp) {
-		var adr_titles_vals = getAddressesTitles();
-		var li_content = formatedAddressFieldsValuesList[id_address]['formated_fields_values'];
-		var ordered_fields_name = ['title'];
+		var adr_titles_vals = getAddressesTitles(),
+			li_content = formatedAddressFieldsValuesList[id_address]['formated_fields_values'],
+			ordered_fields_name = ['title'];
 
 		ordered_fields_name = ordered_fields_name.concat(formatedAddressFieldsValuesList[id_address]['ordered_fields']);
 		ordered_fields_name = ordered_fields_name.concat(['update']);
@@ -88,16 +88,16 @@
 		dest_comp.html('');
 
 		li_content['title'] = adr_titles_vals[address_type];
-		li_content['update'] = '<a href="{$link->getPageLink('address', true, NULL, "id_address")}'+id_address+'&amp;back=order?step=1{if $back}&mod={$back}{/if}" title="{l s='Update'}">{l s='Update'}</a>';
+		li_content['update'] = '<a href="{$link->getPageLink('address', true, NULL, "id_address")}'+id_address+'&amp;back=order?step=1{if $back}&mod={$back}{/if}" title="{l s='Update' js=1}">{l s='Update' js=1}</a>';
 
 		appendAddressList(dest_comp, li_content, ordered_fields_name);
 	}
 
 	function appendAddressList(dest_comp, values, fields_name) {
 		for (var item in fields_name) {
-			var name = fields_name[item];
-			var value = getFieldValue(name, values);
-			if (value != '') {
+			var name = fields_name[item],
+				value = getFieldValue(name, values);
+			if (value != "") {
 				var new_li = document.createElement('li');
 				new_li.className = 'address_'+ name;
 				new_li.innerHTML = getFieldValue(name, values);
@@ -107,18 +107,15 @@
 	}
 
 	function getFieldValue(field_name, values) {
-		var reg = new RegExp("[ ]+", "g");
-		var items = field_name.split(reg);
-		var vals = new Array();
+		var reg=new RegExp("[ ]+", "g"),
+			items = field_name.split(reg),
+			vals = new Array();
 
-		for (var field_item in items) {
+		for (var field_item in items)
 			vals.push(values[items[field_item]]);
-		}
 
 		return vals.join(" ");
 	}
-
-//]]>
 </script>
 
 {if !$opc}
@@ -145,7 +142,7 @@
 		<div id="opc_account-overlay" class="opc-overlay" style="display: none;"></div>
 {/if}
 	<div class="addresses clearfix">
-		<input type="hidden" name="id_address_delivery" id="id_address_delivery" value="{$cart->id_address_delivery}" onchange="updateAddressesDisplay();{if $opc}updateAddressSelection();{/if}" />
+		<input type="hidden" name="id_address_delivery" id="id_address_delivery" value="{$cart->id_address_delivery}" onchange="updateAddressesDisplay();{if $opc}updateAddressSelection();{/if}">
 		<p id="address_invoice_form" class="select" {if $cart->id_address_invoice == $cart->id_address_delivery}style="display: none;"{/if}>
 
 		{if $addresses|@count >= 1}
@@ -167,24 +164,24 @@
 			<a href="{$link->getPageLink('address', true, NULL, "back={$back_order_page}?step=1{'&multi-shipping=1'|urlencode}{if $back}&mod={$back|urlencode}{/if}")}" title="{l s='Add'}" class="button_large">&raquo; {l s='Add a new address'}</a>
 		</p>
 		{if !$opc}
-		<div id="ordermsg" class="clearfix">
-			<p class="txt">{l s='If you would like to add a comment about your order, please write it below.'}</p>
-			<p class="textarea"><textarea name="message">{if isset($oldMessage)}{$oldMessage}{/if}</textarea></p>
-		</div>
+			<div id="ordermsg" class="clearfix">
+				<p class="txt">{l s='If you would like to add a comment about your order, please write it below.'}</p>
+				<p class="textarea"><textarea name="message">{if isset($oldMessage)}{$oldMessage}{/if}</textarea></p>
+			</div>
 		{/if}
 	</div>
 {if !$opc}
-	<p class="cart_navigation submit">
-		<input type="hidden" class="hidden" name="step" value="2" />
-		<input type="hidden" name="back" value="{$back}" />
-		{if $back}
-			<a href="{$link->getPageLink('order', true, NULL, "step=0&amp;back={$back}")}" title="{l s='Previous'}" class="button">{l s='Previous'}</a>
-		{else}
-			<a href="{$link->getPageLink('order', true, NULL, "step=0")}" title="{l s='Previous'}" class="button">{l s='Previous'}</a>
-		{/if}
-		<input type="submit" name="processAddress" value="{l s='Next'} &raquo;" class="exclusive" />
-	</p>
-</form>
+		<p class="cart_navigation submit">
+			<input type="hidden" class="hidden" name="step" value="2">
+			<input type="hidden" name="back" value="{$back}">
+			{if $back}
+				<a href="{$link->getPageLink('order', true, NULL, "step=0&amp;back={$back}")}" title="{l s='Previous'}" class="button">{l s='Previous'}</a>
+			{else}
+				<a href="{$link->getPageLink('order', true, NULL, "step=0")}" title="{l s='Previous'}" class="button">{l s='Previous'}</a>
+			{/if}
+			<input type="submit" name="processAddress" value="{l s='Next'} &raquo;" class="exclusive">
+		</p>
+	</form>
 {else}
-</div>
+	</div>
 {/if}

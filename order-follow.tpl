@@ -7,14 +7,12 @@
 {include file="$tpl_dir./breadcrumb.tpl"}
 
 <h1>{l s='Return Merchandise Authorization (RMA)'}</h1>
-{if isset($errorQuantity) && $errorQuantity}
-	<p class="error">{l s='You do not have enough products to request another merchandise return.'}</p>
-{/if}
+{if isset($errorQuantity) && $errorQuantity}<p class="error">{l s='You do not have enough products to request another merchandise return.'}</p>{/if}
 {if isset($errorMsg) && $errorMsg}
 	<p class="error">
 		{l s='Please provide an explanation for your RMA.'}
 	</p>
-	<div>
+	<p>
 		<h2>{l s='Please specify an explanation for your RMA:'}</h2>
 		<form method="POST"  id="returnOrderMessage"/>
 			<p class="textarea">
@@ -29,7 +27,7 @@
 			<input type="hidden" name="id_order" value="{$id_order}"/>
 			<input class="button_large" type="submit" name="submitReturnMerchandise" value="{l s='Make an RMA slip'}"/>
 		</form>
-	</div>
+	</p>
 {/if}
 {if isset($errorDetail1) && $errorDetail1}<p class="error">{l s='Please check at least one product you would like to return.'}</p>{/if}
 {if isset($errorDetail2) && $errorDetail2}<p class="error">{l s='Please provide a quantity for the product you checked.'}</p>{/if}
@@ -51,9 +49,9 @@
 		<tbody>
 		{foreach from=$ordersReturn item=return name=myLoop}
 			<tr class="{if $smarty.foreach.myLoop.first}first_item{elseif $smarty.foreach.myLoop.last}last_item{else}item{/if} {if $smarty.foreach.myLoop.index % 2}alternate_item{/if}">
-				<td class="bold"><a class="color-myaccount" href="javascript:showOrder(0, {$return.id_order_return|intval}, '{$link->getPageLink('order-return')}');">{l s='#'}{$return.id_order_return|string_format:"%06d"}</a></td>
-				<td class="history_method"><a class="color-myaccount" href="javascript:showOrder(1, {$return.id_order|intval}, '{$link->getPageLink('order-detail')}');">{l s='#'}{$return.id_order|string_format:"%06d"}</a></td>
-				<td class="history_method">{$return.state_name|escape:'htmlall':'UTF-8'}</td>
+				<td class="bold"><a class="color-myaccount" href="javascript:showOrder(0, {$return.id_order_return|intval}, '{$link->getPageLink('order-return', true)}');">{l s='#'}{$return.id_order_return|string_format:"%06d"}</a></td>
+				<td class="history_method"><a class="color-myaccount" href="javascript:showOrder(1, {$return.id_order|intval}, '{$link->getPageLink('order-detail', true)}');">{l s='#'}{$return.id_order|string_format:"%06d"}</a></td>
+				<td class="history_method"><span class="bold">{$return.state_name|escape:'htmlall':'UTF-8'}</span></td>
 				<td class="bold">{dateFormat date=$return.date_add full=0}</td>
 				<td class="history_invoice">
 				{if $return.state == 2}

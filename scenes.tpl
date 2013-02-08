@@ -8,12 +8,10 @@
 <script src="{$smarty.const._PS_JS_DIR_}jquery/plugins/jquery.scrollTo.js"></script>
 <script src="{$smarty.const._PS_JS_DIR_}jquery/plugins/jquery.serialScroll.js"></script>
 <script>
-	// <![CDATA[
-	i18n_scene_close = '{l s='Close'}';
+	i18n_scene_close = '{l s='Close' js=1}';
 	$(function () {ldelim}
 		li_width = parseInt({$thumbSceneImageType.width} + 10);
 	{rdelim});
-	//]]>
 </script>
 <script src="{$js_dir}scenes.js"></script>
 <div id="scenes">
@@ -38,7 +36,7 @@
 					</div>
 					{/if}
 					<img src="{$link->getImageLink($product.id_product, $imageIds, 'medium_default')}" alt="" width="{$mediumSize.width}" height="{$mediumSize.height}" />
-					<h4><span class="product_name">{$product.details->name}</span></h4>
+					<p class="title_block"><span class="product_name">{$product.details->name}</span></p>
 					<p class="description">{$product.details->description_short|strip_tags|truncate:170:'...'}</p>
 				</div>
 			{/foreach}

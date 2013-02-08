@@ -2,32 +2,30 @@
 *
 *
 *}
-<div id="carrier_area">
 {if !$opc}
 	<script>
-		//<![CDATA[
-		var orderProcess = 'order',
-			currencySign = '{$currencySign|html_entity_decode:2:"UTF-8"}',
-			currencyRate = '{$currencyRate|floatval}',
-			currencyFormat = '{$currencyFormat|intval}',
-			currencyBlank = '{$currencyBlank|intval}',
-			txtProduct = "{l s='product'}",
-			txtProducts = "{l s='products'}",
-			orderUrl = '{$link->getPageLink("order", true)}',
-			msg = "{l s='You must agree to the terms of service before continuing.' js=1}";
+	var orderProcess = 'order';
+	var currencySign = '{$currencySign|html_entity_decode:2:"UTF-8"}';
+	var currencyRate = '{$currencyRate|floatval}';
+	var currencyFormat = '{$currencyFormat|intval}';
+	var currencyBlank = '{$currencyBlank|intval}';
+	var txtProduct = "{l s='product' js=1}";
+	var txtProducts = "{l s='products' js=1}";
+	var orderUrl = '{$link->getPageLink("order", true)}';
 
-		{literal}
-			function acceptCGV() {
-				if ($('#cgv').length && !$('input#cgv:checked').length) {
-					alert(msg);
-					return false;
-				}
-				else {
-					return true;
-				—
-			}
-		{/literal}
-		//]]>
+	var msg = "{l s='You must agree to the terms of service before continuing.' js=1}";
+	{literal}
+	function acceptCGV()
+	{
+		if ($('#cgv').length && !$('input#cgv:checked').length)
+		{
+			alert(msg);
+			return false;
+		}
+		else
+			return true;
+	}
+	{/literal}
 	</script>
 {else}
 	<script>
@@ -36,22 +34,25 @@
 {/if}
 
 {if isset($virtual_cart) && !$virtual_cart && $giftAllowed && $cart->gift == 1}
-<script>
-	{literal}
-	// <![CDATA[
-		$('document').ready( function() {
-			if ($('input#gift').is(':checked')) {
-				$('p#gift_div').show();
-			}
-		});
-	//]]>
-	{/literal}
-</script>
+	<script>
+		{literal}
+			$('document').ready( function() {
+				if ($('input#gift').is(':checked'))
+					$('p#gift_div').show();
+			});
+		{/literal}
+	</script>
 {/if}
 
 {if !$opc}
 	{capture name=path}{l s='Shipping'}{/capture}
 	{include file="$tpl_dir./breadcrumb.tpl"}
+{/if}
+
+{if !$opc}
+	<div id="carrier_area">
+{else}
+	<div id="carrier_area" class="opc-main-block">
 {/if}
 
 {if !$opc}
@@ -75,7 +76,7 @@
 <div class="order_carrier_content">
 
 {if isset($virtual_cart) && $virtual_cart}
-	<input id="input_virtual_carrier" class="hidden" type="hidden" name="id_carrier" value="0" />
+	<input id="input_virtual_carrier" class="hidden" type="hidden" name="id_carrier" value="0">
 {else}
 	<h3 class="carrier_title">{l s='Choose your delivery method'}</h3>
 
@@ -89,7 +90,7 @@
 	{else}
 		{if $recyclablePackAllowed}
 			<p class="checkbox">
-				<input type="checkbox" name="recyclable" id="recyclable" value="1" {if $recyclable == 1}checked="checked"{/if} />
+				<input type="checkbox" name="recyclable" id="recyclable" value="1" {if $recyclable == 1}checked="checked"{/if}>
 				<label for="recyclable">{l s='I agree to receive my order in recycled packaging'}.</label>
 			</p>
 		{/if}
@@ -106,14 +107,14 @@
 			<div class="delivery_options">
 			{foreach $option_list as $key => $option}
 				<div class="delivery_option {if ($option@index % 2)}alternate_{/if}item">
-					<input class="delivery_option_radio" type="radio" name="delivery_option[{$id_address}]" onchange="{if $opc}updateCarrierSelectionAndGift();{else}updateExtraCarrier('{$key}', {$id_address});{/if}" id="delivery_option_{$id_address}_{$option@index}" value="{$key}" {if isset($delivery_option[$id_address]) && $delivery_option[$id_address] == $key}checked="checked"{/if} />
+					<input class="delivery_option_radio" type="radio" name="delivery_option[{$id_address}]" onchange="{if $opc}updateCarrierSelectionAndGift();{else}updateExtraCarrier('{$key}', {$id_address});{/if}" id="delivery_option_{$id_address}_{$option@index}" value="{$key}" {if isset($delivery_option[$id_address]) && $delivery_option[$id_address] == $key}checked="checked"{/if}>
 					<label for="delivery_option_{$id_address}_{$option@index}">
 						<table class="resume">
 							<tr>
 								<td class="delivery_option_logo">
 									{foreach $option.carrier_list as $carrier}
 										{if $carrier.logo}
-											<img src="{$carrier.logo}" alt="{$carrier.instance->name}"/>
+											<img src="{$carrier.logo}" alt="{$carrier.instance->name}">
 										{else if !$option.unique_carrier}
 											{$carrier.instance->name}
 											{if !$carrier@last} - {/if}
@@ -163,9 +164,9 @@
 							<tr>
 								{if !$option.unique_carrier}
 								<td class="first_item">
-								<input type="hidden" value="{$carrier.instance->id}" name="id_carrier" />
+								<input type="hidden" value="{$carrier.instance->id}" name="id_carrier">
 									{if $carrier.logo}
-										<img src="{$carrier.logo}" alt="{$carrier.instance->name}"/>
+										<img src="{$carrier.logo}" alt="{$carrier.instance->name}">
 									{/if}
 								</td>
 								<td>
@@ -173,7 +174,7 @@
 								</td>
 								{/if}
 								<td {if $option.unique_carrier}class="first_item" colspan="2"{/if}>
-									<input type="hidden" value="{$carrier.instance->id}" name="id_carrier" />
+									<input type="hidden" value="{$carrier.instance->id}" name="id_carrier">
 									{if isset($carrier.instance->delay[$cookie->id_lang])}
 										{$carrier.instance->delay[$cookie->id_lang]}<br />
 										{if count($carrier.product_list) <= 1}
@@ -239,7 +240,7 @@
 {if $conditions AND $cms_id}
 	<h3 class="condition_title">{l s='Terms of service'}</h3>
 	<p class="checkbox">
-		<input type="checkbox" name="cgv" id="cgv" value="1" {if $checkedTOS}checked="checked"{/if} />
+		<input type="checkbox" name="cgv" id="cgv" value="1" {if $checkedTOS}checked="checked"{/if}>
 		<label for="cgv">{l s='I agree to the Terms of Service and will adhere to them unconditionally.'}</label> <a href="{$link_conditions}" class="iframe">{l s='(Read Terms of Service)'}</a>
 	</p>
 	<script>$('a.iframe').fancybox();</script>
@@ -248,8 +249,8 @@
 
 {if !$opc}
 	<p class="cart_navigation submit">
-		<input type="hidden" name="step" value="3" />
-		<input type="hidden" name="back" value="{$back}" />
+		<input type="hidden" name="step" value="3">
+		<input type="hidden" name="back" value="{$back}">
 		{if !$is_guest}
 			{if $back}
 				<a href="{$link->getPageLink('order', true, NULL, "step=1&back={$back}&multi-shipping={$multi_shipping}")}" title="{l s='Previous'}" class="button">{l s='Previous'}</a>
@@ -260,7 +261,7 @@
 				<a href="{$link->getPageLink('order', true, NULL, "multi-shipping={$multi_shipping}")}" title="{l s='Previous'}" class="button">{l s='Previous'}</a>
 		{/if}
 		{if isset($virtual_cart) && $virtual_cart || (isset($delivery_option_list) && !empty($delivery_option_list))}
-			<input type="submit" name="processCarrier" value="{l s='Next'}" class="exclusive" />
+			<input type="submit" name="processCarrier" value="{l s='Next'} &raquo;" class="exclusive">
 		{/if}
 	</p>
 </form>

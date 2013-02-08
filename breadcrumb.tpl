@@ -3,6 +3,7 @@
 *
 *}
 
+<!-- Breadcrumb -->
 {if isset($smarty.capture.path)}{assign var='path' value=$smarty.capture.path}{/if}
 <div class="breadcrumb">
 	<a href="{$base_dir}" title="{l s='return to Home'}">{l s='return to Home'}</a>

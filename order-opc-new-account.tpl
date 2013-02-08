@@ -4,16 +4,16 @@
 	<form action="{$link->getPageLink('authentication', true, NULL, "back=order-opc")}" method="post" id="login_form" class="std">
 		<fieldset>
 			<h3>{l s='Already registered?'}</h3>
-			<p><a href="#" id="openLoginFormBlock">{l s='Click here'}</a></p>
+			<p><a href="#" id="openLoginFormBlock">&raquo; {l s='Click here'}</a></p>
 			<div id="login_form_content" style="display:none;">
 				<!-- Error return block -->
 				<div id="opc_login_errors" class="error" style="display:none;"></div>
 				<!-- END Error return block -->
-				<div>
+				<div style="margin-left:40px;margin-bottom:5px;float:left;width:40%;">
 					<label for="login_email">{l s='E-mail address'}</label>
 					<span><input type="text" id="login_email" name="email" /></span>
 				</div>
-				<div>
+				<div style="margin-left:40px;margin-bottom:5px;float:left;width:40%;">
 					<label for="login_passwd">{l s='Password'}</label>
 					<span><input type="password" id="login_passwd" name="login_passwd" /></span>
 					<a href="{$link->getPageLink('password', true)}" class="lost_password">{l s='Forgot your password?'}</a>
@@ -30,15 +30,15 @@
 			<h3 id="new_account_title">{l s='New Customer'}</h3>
 			<div id="opc_account_choice">
 				<div class="opc_float">
-					<h4>{l s='Instant Checkout'}</h4>
+					<p class="title_block">{l s='Instant Checkout'}</p>
 					<p>
 						<input type="button" class="exclusive_large" id="opc_guestCheckout" value="{l s='Checkout as guest'}" />
 					</p>
 				</div>
 
 				<div class="opc_float">
-					<h4>{l s='Create your account today and enjoy:'}</h4>
-					<ul>
+					<p class="title_block">{l s='Create your account today and enjoy:'}</p>
+					<ul class="bullet">
 						<li>{l s='Personalized and secure access'}</li>
 						<li>{l s='Fast and easy check out'}</li>
 						<li>{l s='Separate billing and shipping addresses'}</li>
@@ -51,7 +51,7 @@
 			</div>
 			<div id="opc_account_form">
 				{$HOOK_CREATE_ACCOUNT_TOP}
-				<script>
+				<script type="text/javascript">
 				// <![CDATA[
 				idSelectedCountry = {if isset($guestInformations) && $guestInformations.id_state}{$guestInformations.id_state|intval}{else}false{/if};
 				{if isset($countries)}
@@ -73,13 +73,15 @@
 				//]]>
 				{if $vat_management}
 					{literal}
-					function vat_number() {
+					function vat_number()
+					{
 						if ($('#company').val() != '')
 							$('#vat_number_block').show();
 						else
 							$('#vat_number_block').hide();
 					}
-					function vat_number_invoice() {
+					function vat_number_invoice()
+					{
 						if ($('#company_invoice').val() != '')
 							$('#vat_number_block_invoice').show();
 						else
@@ -87,10 +89,10 @@
 					}
 
 					$(document).ready(function() {
-						$('#company').blur(function() {
+						$('#company').blur(function(){
 							vat_number();
 						});
-						$('#company_invoice').blur(function() {
+						$('#company_invoice').blur(function(){
 							vat_number_invoice();
 						});
 						vat_number();
@@ -376,7 +378,7 @@
 				<p style="display: none;" id="opc_account_saved">
 					{l s='Account informations saved successfully'}
 				</p>
-				<p class="required opc-required">
+				<p class="required opc-required clear">
 					<sup>*</sup>{l s='Required field'}
 				</p>
 				<!-- END Account -->
