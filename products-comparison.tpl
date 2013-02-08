@@ -1,26 +1,6 @@
 {*
-* 2007-2012 PrestaShop
 *
-* NOTICE OF LICENSE
 *
-* This source file is subject to the Academic Free License (AFL 3.0)
-* that is bundled with this package in the file LICENSE.txt.
-* It is also available through the world-wide-web at this URL:
-* http://opensource.org/licenses/afl-3.0.php
-* If you did not receive a copy of the license and are unable to
-* obtain it through the world-wide-web, please send an email
-* to license@prestashop.com so we can send you a copy immediately.
-*
-* DISCLAIMER
-*
-* Do not edit or add to this file if you wish to upgrade PrestaShop to newer
-* versions in the future. If you wish to customize PrestaShop for your
-* needs please refer to http://www.prestashop.com for more information.
-*
-*  @author PrestaShop SA <contact@prestashop.com>
-*  @copyright  2007-2012 PrestaShop SA
-*  @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
-*  International Registered Trademark & Property of PrestaShop SA
 *}
 
 {capture name=path}{l s='Product Comparison'}{/capture}
@@ -46,7 +26,7 @@
 				<p class="s_title_block"><a href="{$product->getLink()}" title="{$product->name|truncate:32:'...'|escape:'htmlall':'UTF-8'}">{$product->name|truncate:27:'...'|escape:'htmlall':'UTF-8'}</a></p>
 				<div class="product_desc"><a href="{$product->getLink()}">{$product->description_short|strip_tags|truncate:60:'...'}</a></div>
 				<a class="lnk_more" href="{$product->getLink()}" title="{l s='View'}">{l s='View'}</a>
-				
+
 				<div class="comparison_product_infos">
 					<div class="prices_container">
 					{if isset($product->show_price) && $product->show_price && !isset($restricted_country_mode) && !$PS_CATALOG_MODE}

@@ -1,26 +1,6 @@
 {*
-* 2007-2012 PrestaShop
 *
-* NOTICE OF LICENSE
 *
-* This source file is subject to the Academic Free License (AFL 3.0)
-* that is bundled with this package in the file LICENSE.txt.
-* It is also available through the world-wide-web at this URL:
-* http://opensource.org/licenses/afl-3.0.php
-* If you did not receive a copy of the license and are unable to
-* obtain it through the world-wide-web, please send an email
-* to license@prestashop.com so we can send you a copy immediately.
-*
-* DISCLAIMER
-*
-* Do not edit or add to this file if you wish to upgrade PrestaShop to newer
-* versions in the future. If you wish to customize PrestaShop for your
-* needs please refer to http://www.prestashop.com for more information.
-*
-*  @author PrestaShop SA <contact@prestashop.com>
-*  @copyright  2007-2012 PrestaShop SA
-*  @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
-*  International Registered Trademark & Property of PrestaShop SA
 *}
 
 {capture name=path}{l s='Your shopping cart'}{/capture}
@@ -42,16 +22,14 @@
 {elseif $PS_CATALOG_MODE}
 	<p class="warning">{l s='This store has not accepted your new order.'}</p>
 {else}
-	<script type="text/javascript">
-	// <![CDATA[
-	var currencySign = '{$currencySign|html_entity_decode:2:"UTF-8"}';
-	var currencyRate = '{$currencyRate|floatval}';
-	var currencyFormat = '{$currencyFormat|intval}';
-	var currencyBlank = '{$currencyBlank|intval}';
-	var txtProduct = "{l s='product' js=1}";
-	var txtProducts = "{l s='products' js=1}";
-	var deliveryAddress = {$cart->id_address_delivery|intval};
-	// ]]>
+	<script>
+		var currencySign = '{$currencySign|html_entity_decode:2:"UTF-8"}';
+		var currencyRate = '{$currencyRate|floatval}';
+		var currencyFormat = '{$currencyFormat|intval}';
+		var currencyBlank = '{$currencyBlank|intval}';
+		var txtProduct = "{l s='product' js=1}";
+		var txtProducts = "{l s='products' js=1}";
+		var deliveryAddress = {$cart->id_address_delivery|intval};
 	</script>
 	<p style="display:none" id="emptyCartWarning" class="warning">{l s='Your shopping cart is empty.'}</p>
 {if isset($lastProductAdded) AND $lastProductAdded}
@@ -64,7 +42,7 @@
 			<p class="s_title_block"><a href="{$link->getProductLink($lastProductAdded.id_product, $lastProductAdded.link_rewrite, $lastProductAdded.category, null, null, null, $lastProductAdded.id_product_attribute)|escape:'htmlall':'UTF-8'}">{$lastProductAdded.name|escape:'htmlall':'UTF-8'}</a></p>
 			{if isset($lastProductAdded.attributes) && $lastProductAdded.attributes}<a href="{$link->getProductLink($lastProductAdded.id_product, $lastProductAdded.link_rewrite, $lastProductAdded.category, null, null, null, $lastProductAdded.id_product_attribute)|escape:'htmlall':'UTF-8'}">{$lastProductAdded.attributes|escape:'htmlall':'UTF-8'}</a>{/if}
 		</div>
-		<br class="clear" />
+		<div class="clear"></div>
 	</div>
 {/if}
 <p>{l s='Your shopping cart contains:'} <span id="summary_products_quantity">{$productNumber} {if $productNumber == 1}{l s='product'}{else}{l s='products'}{/if}</span></p>
@@ -250,7 +228,7 @@
 												{l s=':'} {$textField.value}
 											</li>
 										{/foreach}
-										
+
 									</ul>
 								{/if}
 
@@ -401,7 +379,7 @@
 				{/foreach}
 				</ul>
 		{/foreach}
-		<p class="clear" />
+		<div class="clear"></div>
 	{/if}
 </div>
 {/if}
@@ -421,4 +399,3 @@
 		</div>
 	{/if}
 {/if}
-
